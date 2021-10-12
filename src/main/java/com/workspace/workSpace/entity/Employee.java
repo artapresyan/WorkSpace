@@ -1,7 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
-import java.util.Scanner;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "employees")
@@ -24,8 +24,8 @@ public class Employee {
     @Column(name = "phone")
     private String employeePhone;
 
-    @Column(name = "birth_data")
-    private String employeeBirthData;
+    @Column(name = "birth_date")
+    private LocalDate employeeBirthData;
 
     @Column(name = "password")
     private String employeePassword;
@@ -34,7 +34,7 @@ public class Employee {
     }
 
     public Employee(String employeeName, String employeeSurname, String employeeEmail, String employeePhone,
-                    String employeeBirthData, String employeePassword) {
+                    LocalDate employeeBirthData, String employeePassword) {
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
         this.employeeEmail = employeeEmail;
@@ -83,11 +83,11 @@ public class Employee {
         this.employeePhone = employeePhone;
     }
 
-    public String getEmployeeBirthData() {
+    public LocalDate getEmployeeBirthData() {
         return employeeBirthData;
     }
 
-    public void setEmployeeBirthData(String employeeBirthData) {
+    public void setEmployeeBirthData(LocalDate employeeBirthData) {
         this.employeeBirthData = employeeBirthData;
     }
 
