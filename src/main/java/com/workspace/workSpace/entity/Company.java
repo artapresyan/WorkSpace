@@ -1,7 +1,5 @@
 package com.workspace.workSpace.entity;
 
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,22 +10,22 @@ public class Company {
     @Column(name = "id")
     private Long companyId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String companyName;
 
     @Column(name = "email")
     private String companyEmail;
 
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     private String companyPhone;
 
-    @Column(name = "main_office_address")
-    private String companyMainOfficeAddress;
+    @Column(name = "office_address", nullable = false)
+    private String companyOfficeAddress;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String companyUsername;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String companyPassword;
 
     @Column(name = "employees")
@@ -36,11 +34,13 @@ public class Company {
     public Company() {
     }
 
-    public Company(String companyName, String companyEmail, String companyPhone, String companyMainOfficeAddress, String companyUsername, String companyPassword, Long numOfEmployees) {
+    public Company(String companyName, String companyEmail, String companyPhone,
+                   String companyMainOfficeAddress, String companyUsername,
+                   String companyPassword, Long numOfEmployees) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
-        this.companyMainOfficeAddress = companyMainOfficeAddress;
+        this.companyOfficeAddress = companyMainOfficeAddress;
         this.companyUsername = companyUsername;
         this.companyPassword = companyPassword;
         this.numOfEmployees = numOfEmployees;
@@ -79,11 +79,11 @@ public class Company {
     }
 
     public String getCompanyMainOfficeAddress() {
-        return companyMainOfficeAddress;
+        return companyOfficeAddress;
     }
 
     public void setCompanyMainOfficeAddress(String companyMainOfficeAddress) {
-        this.companyMainOfficeAddress = companyMainOfficeAddress;
+        this.companyOfficeAddress = companyMainOfficeAddress;
     }
 
     public String getCompanyUsername() {

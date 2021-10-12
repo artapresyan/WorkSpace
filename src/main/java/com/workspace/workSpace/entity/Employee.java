@@ -18,7 +18,11 @@ public class Employee {
     @Column(name = "surname")
     private String employeeSurname;
 
-    @Column(name = "Email")
+
+    @Column(name = "sector")
+    private String employeeWorkSector;
+
+    @Column(name = "email")
     private String employeeEmail;
 
     @Column(name = "phone")
@@ -27,19 +31,25 @@ public class Employee {
     @Column(name = "birth_date")
     private LocalDate employeeBirthData;
 
+    @Column(name = "username")
+    private String employeeUsername;
+
     @Column(name = "password")
     private String employeePassword;
 
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeSurname, String employeeEmail, String employeePhone,
-                    LocalDate employeeBirthData, String employeePassword) {
+    public Employee(String employeeName, String employeeSurname, String employeeWorkSector,
+                    String employeeEmail, String employeePhone, LocalDate employeeBirthData,
+                    String employeeUsername, String employeePassword) {
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
+        this.employeeWorkSector = employeeWorkSector;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
         this.employeeBirthData = employeeBirthData;
+        this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
     }
 
@@ -91,6 +101,14 @@ public class Employee {
         this.employeeBirthData = employeeBirthData;
     }
 
+    public String getEmployeeUsername() {
+        return employeeUsername;
+    }
+
+    public void setEmployeeUsername(String employeeUsername) {
+        this.employeeUsername = employeeUsername;
+    }
+
     public String getEmployeePassword() {
         return employeePassword;
     }
@@ -98,6 +116,15 @@ public class Employee {
     public void setEmployeePassword(String employeePassword) {
         this.employeePassword = employeePassword;
     }
+
+    public String getEmployeeWorkSector() {
+        return employeeWorkSector;
+    }
+
+    public void setEmployeeWorkSector(String employeeWorkSector) {
+        this.employeeWorkSector = employeeWorkSector;
+    }
+
 }
 
 
