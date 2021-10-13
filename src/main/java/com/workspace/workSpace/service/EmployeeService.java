@@ -41,24 +41,24 @@ public class EmployeeService {
                                String employeeEmail, String employeePhone, LocalDate employeeBirthData,
                                String employeeUsername, String employeePassword){
         try {
-            Employee employee = employeeRepository.getById(id);
+            Employee newEmployee = employeeRepository.getById(id);
             if (employeeName !=null)
-            employee.setEmployeeName(employeeName);
+                newEmployee.setEmployeeName(employeeName);
             if (employeeSurname !=null)
-            employee.setEmployeeSurname(employeeSurname);
+                newEmployee.setEmployeeSurname(employeeSurname);
             if (employeeEmail !=null)
-            employee.setEmployeeEmail(employeeEmail);
+                newEmployee.setEmployeeEmail(employeeEmail);
             if (employeeUsername !=null)
-            employee.setEmployeeUsername(employeeUsername);
+                newEmployee.setEmployeeUsername(employeeUsername);
             if (employeePassword !=null)
-            employee.setEmployeePassword(employeePassword);
+                newEmployee.setEmployeePassword(employeePassword);
             if (employeeJobCategory !=null)
-                employee.setEmployeeJobCategory(employeeJobCategory);
+                newEmployee.setEmployeeJobCategory(employeeJobCategory);
             if (employeePhone!=null)
-                employee.setEmployeePhone(employeePhone);
+                newEmployee.setEmployeePhone(employeePhone);
             if (employeeBirthData!=null)
-                employee.setEmployeeBirthData(employeeBirthData);
-            employeeRepository.save(employee);
+                newEmployee.setEmployeeBirthData(employeeBirthData);
+            employeeRepository.save(newEmployee);
             return "Information successfully updated";
 
         }catch (NoSuchElementException e){

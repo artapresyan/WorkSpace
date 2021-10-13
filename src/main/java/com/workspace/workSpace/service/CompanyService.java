@@ -24,7 +24,7 @@ public class CompanyService {
         Company newCompany=new Company(companyName,companyEmail,companyPhone,companyOfficeAddress,
                                         companyUsername,companyPassword,numOfEmployees);
         companyRepository.save(newCompany);
-        return "Congratulations!"+companyName+" registered successfully.";
+        return "Congratulations! "+companyName+" registered successfully.";
     }
 
     public String removeCompany(Long id){

@@ -14,7 +14,7 @@ public class Job {
     @Column(name = "title", nullable = false)
     private String jobTitle;
 
-    @Column(name = "type")//full-time, half-time, etc.
+    @Column(name = "type", nullable = false)//full-time, half-time, etc.
     private String jobType;
 
     @Column(name = "location", nullable = false)
@@ -26,10 +26,10 @@ public class Job {
     @Column(name = "description", nullable = false)
     private String jobDescription;
 
-    @Column(name = "responsibilities")
+    @Column(name = "responsibilities", nullable = false)
     private String jobResponsibilities;
 
-    @Column(name = "qualifications")
+    @Column(name = "qualifications", nullable = false)
     private String jobQualifications;
 
     @Column(name = "contact_us", nullable = false)

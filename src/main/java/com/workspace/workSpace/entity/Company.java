@@ -14,7 +14,7 @@ public class Company {
     @Column(name = "name", nullable = false)
     private String companyName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String companyEmail;
 
     @Column(name = "phone", nullable = false)
