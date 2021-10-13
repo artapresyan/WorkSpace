@@ -42,10 +42,15 @@ public class EmployeeService {
                                String employeeUsername, String employeePassword){
         try {
             Employee employee = employeeRepository.getById(id);
+            if (employeeName !=null)
             employee.setEmployeeName(employeeName);
+            if (employeeSurname !=null)
             employee.setEmployeeSurname(employeeSurname);
+            if (employeeEmail !=null)
             employee.setEmployeeEmail(employeeEmail);
+            if (employeeUsername !=null)
             employee.setEmployeeUsername(employeeUsername);
+            if (employeePassword !=null)
             employee.setEmployeePassword(employeePassword);
             if (employeeJobCategory !=null)
                 employee.setEmployeeJobCategory(employeeJobCategory);

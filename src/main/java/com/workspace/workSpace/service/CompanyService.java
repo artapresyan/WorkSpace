@@ -26,12 +26,13 @@ public class CompanyService {
         companyRepository.save(newCompany);
         return "Congratulations!"+companyName+" registered successfully.";
     }
+
     public String removeCompany(Long id){
         try {
             companyRepository.deleteById(id);
             return companyRepository.getById(id).getCompanyName()+" removed.";
         }catch (NoSuchElementException e){
-            return "There is no company with that ID";
+            return "ERROR 404";
         }
     }
 
@@ -40,10 +41,15 @@ public class CompanyService {
                               String companyPassword, Long numOfEmployees){
         try {
             Company company = companyRepository.getById(id);
+            if (companyName!=null)
                 company.setCompanyName(companyName);
+            if (companyPhone!=null)
                 company.setCompanyPhone(companyPhone);
+            if (companyOfficeAddress!=null)
                 company.setCompanyOfficeAddress(companyOfficeAddress);
+            if (companyUsername!=null)
                 company.setCompanyUsername(companyUsername);
+            if (companyPassword!=null)
                 company.setCompanyPassword(companyPassword);
             if (companyEmail !=null)
                 company.setCompanyEmail(companyEmail);
@@ -53,7 +59,7 @@ public class CompanyService {
             return "Information successfully updated";
 
         }catch (NoSuchElementException e){
-            return "There is no company with that ID";
+            return "ERROR 404";
         }
     }
 
