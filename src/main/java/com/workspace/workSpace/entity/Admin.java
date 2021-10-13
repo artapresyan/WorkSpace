@@ -11,16 +11,16 @@ public class Admin {
     @Column(name = "id")
     private Long adminId;
 
-    @Column(name = "username")
+    @Column(name = "username",nullable = false)
     private String adminUsername;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String adminPassword;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String adminEmail;
 
-    @Column(name = "phone")
+    @Column(name = "phone",nullable = false)
     private String adminPhone;
 
     public Admin() {
