@@ -1,6 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "jobs")
@@ -8,21 +9,21 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String jobId;
+    private Long jobId;
 
-    @Column(name = "title",nullable = false)
+    @Column(name = "title", nullable = false)
     private String jobTitle;
 
     @Column(name = "type")//full-time, half-time, etc.
     private String jobType;
 
-    @Column(name = "location",nullable = false)
+    @Column(name = "location", nullable = false)
     private String jobLocation;
 
-    @Column(name = "category",nullable = false)
+    @Column(name = "category", nullable = false)
     private String jobCategory;
 
-    @Column(name = "description",nullable = false)
+    @Column(name = "description", nullable = false)
     private String jobDescription;
 
     @Column(name = "responsibilities")
@@ -31,8 +32,12 @@ public class Job {
     @Column(name = "qualifications")
     private String jobQualifications;
 
-    @Column(name = "contact_us",nullable = false)
+    @Column(name = "contact_us", nullable = false)
     private String jobContacts;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     public Job() {
     }
@@ -50,11 +55,11 @@ public class Job {
         this.jobContacts = jobContacts;
     }
 
-    public String getJobId() {
+    public Long getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Long jobId) {
         this.jobId = jobId;
     }
 
@@ -120,5 +125,13 @@ public class Job {
 
     public void setJobContacts(String jobContacts) {
         this.jobContacts = jobContacts;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

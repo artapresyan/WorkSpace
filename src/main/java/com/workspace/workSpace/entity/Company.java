@@ -1,6 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
@@ -31,16 +32,19 @@ public class Company {
     @Column(name = "employees")
     private Long numOfEmployees;
 
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
+    private List<Job> companyJobs;
+
     public Company() {
     }
 
     public Company(String companyName, String companyEmail, String companyPhone,
-                   String companyMainOfficeAddress, String companyUsername,
+                   String companyOfficeAddress, String companyUsername,
                    String companyPassword, Long numOfEmployees) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
-        this.companyOfficeAddress = companyMainOfficeAddress;
+        this.companyOfficeAddress = companyOfficeAddress;
         this.companyUsername = companyUsername;
         this.companyPassword = companyPassword;
         this.numOfEmployees = numOfEmployees;
@@ -78,12 +82,12 @@ public class Company {
         this.companyPhone = companyPhone;
     }
 
-    public String getCompanyMainOfficeAddress() {
+    public String getCompanyOfficeAddress() {
         return companyOfficeAddress;
     }
 
-    public void setCompanyMainOfficeAddress(String companyMainOfficeAddress) {
-        this.companyOfficeAddress = companyMainOfficeAddress;
+    public void setCompanyOfficeAddress(String companyOfficeAddress) {
+        this.companyOfficeAddress = companyOfficeAddress;
     }
 
     public String getCompanyUsername() {
@@ -108,5 +112,13 @@ public class Company {
 
     public void setNumOfEmployees(Long numOfEmployees) {
         this.numOfEmployees = numOfEmployees;
+    }
+
+    public List<Job> getCompanyJobs() {
+        return companyJobs;
+    }
+
+    public void setCompanyJobs(List<Job> companyJobs) {
+        this.companyJobs = companyJobs;
     }
 }

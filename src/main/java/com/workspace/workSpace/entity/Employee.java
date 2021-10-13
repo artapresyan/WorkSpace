@@ -12,17 +12,16 @@ public class Employee {
     @Column(name = "id")
     private Long employeeId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String employeeName;
 
-    @Column(name = "surname")
+    @Column(name = "surname",nullable = false)
     private String employeeSurname;
 
+    @Column(name = "job_category")
+    private String employeeJobCategory;
 
-    @Column(name = "sector")
-    private String employeeWorkSector;
-
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String employeeEmail;
 
     @Column(name = "phone")
@@ -31,21 +30,21 @@ public class Employee {
     @Column(name = "birth_date")
     private LocalDate employeeBirthData;
 
-    @Column(name = "username")
+    @Column(name = "username",nullable = false)
     private String employeeUsername;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String employeePassword;
 
     public Employee() {
     }
 
-    public Employee(String employeeName, String employeeSurname, String employeeWorkSector,
+    public Employee(String employeeName, String employeeSurname, String employeeJobCategory,
                     String employeeEmail, String employeePhone, LocalDate employeeBirthData,
                     String employeeUsername, String employeePassword) {
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
-        this.employeeWorkSector = employeeWorkSector;
+        this.employeeJobCategory = employeeJobCategory;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
         this.employeeBirthData = employeeBirthData;
@@ -117,12 +116,12 @@ public class Employee {
         this.employeePassword = employeePassword;
     }
 
-    public String getEmployeeWorkSector() {
-        return employeeWorkSector;
+    public String getEmployeeJobCategory() {
+        return employeeJobCategory;
     }
 
-    public void setEmployeeWorkSector(String employeeWorkSector) {
-        this.employeeWorkSector = employeeWorkSector;
+    public void setEmployeeJobCategory(String employeeWorkSector) {
+        this.employeeJobCategory = employeeWorkSector;
     }
 
 }
