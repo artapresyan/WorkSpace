@@ -49,17 +49,18 @@ public class CompanyService {
                               String companyPassword, Long numOfEmployees){
         try {
             Company company = companyRepository.getById(id);
-            if (companyName!=null)
+            if (companyName.matches("^[A-Z][a-z]+"))
                 company.setCompanyName(companyName);
-            if (companyPhone!=null)
+            if ( companyPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
                 company.setCompanyPhone(companyPhone);
-            if (companyOfficeAddress!=null)
+            if (companyOfficeAddress.matches("[\\w,/\\s&&[^_]]+"))
                 company.setCompanyOfficeAddress(companyOfficeAddress);
-            if (companyUsername!=null)
+            if (companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}"))
                 company.setCompanyUsername(companyUsername);
-            if (companyPassword!=null)
+            if (companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
                 company.setCompanyPassword(companyPassword);
-            if (companyEmail !=null)
+            if (companyEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
                 company.setCompanyEmail(companyEmail);
             if (numOfEmployees!=0)
                 company.setNumOfEmployees(numOfEmployees);
