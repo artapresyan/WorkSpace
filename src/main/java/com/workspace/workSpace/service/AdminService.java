@@ -5,6 +5,7 @@ import com.workspace.workSpace.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -40,16 +41,20 @@ public class AdminService {
             return "ERROR 404";
     }
 
-    public String editAdmin(Long id, String adminUsername, String adminPassword, String adminEmail, String adminPhone){
+    public String editAdmin(Long id, String adminUsername, String adminPassword, String adminEmail, String adminPhone)
+    throws InvalidParameterException{
         try {
             Admin admin= adminRepository.getById(id);
-            if (adminUsername!=null)
+            if (adminUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")) {
                 admin.setAdminUsername(adminUsername);
-            if (adminPassword!=null)
+            }
+            if (adminPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" +
+                    "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
                 admin.setAdminPassword(adminPassword);
-            if (adminEmail!=null)
+            if (adminEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
                 admin.setAdminEmail(adminEmail);
-            if (adminPhone!=null)
+            if (adminPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
                 admin.setAdminPhone(adminPhone);
             adminRepository.save(admin);
             return "Information successfully updated";
