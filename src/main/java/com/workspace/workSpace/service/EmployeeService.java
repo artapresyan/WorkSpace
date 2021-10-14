@@ -22,10 +22,18 @@ public class EmployeeService {
     public String addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
                               String employeeEmail, String employeePhone, LocalDate employeeBirthData,
                               String employeeUsername, String employeePassword){
-        Employee newEmployee=new Employee(employeeName,employeeSurname,employeeJobCategory,employeeEmail,
-                                            employeePhone,employeeBirthData,employeeUsername,employeePassword);
-        employeeRepository.save(newEmployee);
-        return "Congratulations Mr."+employeeSurname+"! "+"Now you are a member of WorkSpace.";
+        if (employeeName.matches("^[A-Z][a-z]+") && employeeSurname.matches("^[A-Z][a-z]+")
+                && employeeUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
+                && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
+                && employeePhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]" +
+                "|[95]|[94]|[93]|[91]|[77]|[55]|[44]|[43]|[41]|[33]){2}[0-9]{6}")
+                && employeeEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")){
+            Employee newEmployee=new Employee(employeeName,employeeSurname,employeeJobCategory,employeeEmail,
+                    employeePhone,employeeBirthData,employeeUsername,employeePassword);
+            employeeRepository.save(newEmployee);
+            return "Congratulations Mr."+employeeSurname+"! "+"Now you are a member of WorkSpace.";
+        }else
+            return "ERROR 404";
     }
 
     public String removeEmployee(Long id){
