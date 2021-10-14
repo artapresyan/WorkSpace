@@ -23,6 +23,7 @@ public class EmployeeService {
                               String employeeEmail, String employeePhone, LocalDate employeeBirthData,
                               String employeeUsername, String employeePassword){
         if (employeeName.matches("^[A-Z][a-z]+") && employeeSurname.matches("^[A-Z][a-z]+")
+                &&employeeJobCategory.matches("[a-zA-z\\s]")
                 && employeeUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
                 && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                 && employeePhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]" +
