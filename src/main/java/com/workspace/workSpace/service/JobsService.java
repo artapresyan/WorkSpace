@@ -50,21 +50,23 @@ public class JobsService {
                           String jobContacts){
         try{
             Job job=jobRepository.getById(id);
-            if (jobTitle !=null)
+            if (jobTitle.matches("[\\w\\s-+:!@#$%&*={};\\.,`()/'<>\\[\\]]{15,50}"))
                 job.setJobTitle(jobTitle);
-            if (jobType !=null)
+            if (jobType.matches("[a-zA-z-]+"))
                 job.setJobType(jobType);
-            if (jobLocation !=null)
+            if (jobLocation.matches("[\\w\\s,/&&[^_]]+"))
                 job.setJobLocation(jobLocation);
-            if (jobCategory !=null)
+            if (jobCategory.matches("[a-zA-z\\s]"))
                 job.setJobCategory(jobCategory);
-            if (jobDescription !=null)
+            if (jobDescription.matches("[\\w\\s-+:!@#$%&*={};\\.,`()/'<>\\[\\]]"))
                 job.setJobDescription(jobDescription);
-            if (jobResponsibilities !=null)
+            if (jobResponsibilities.matches("[\\w\\s-+:!@#$%&*={};\\.,`()/'<>\\[\\]]"))
                 job.setJobResponsibilities(jobResponsibilities);
-            if (jobQualifications !=null)
+            if (jobQualifications.matches("[\\w\\s-+:!@#$%&*={};\\.,`()/'<>\\[\\]]"))
                 job.setJobQualifications(jobQualifications);
-            if (jobContacts !=null)
+            if (jobContacts.matches("(([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}) | (^[a-z][a-z0-9-_\\.]+" +
+                    "[a-z0-9]+@[a-z]+\\.[a-z]{2,3})"))
                 job.setJobContacts(jobContacts);
             jobRepository.save(job);
             return "Information successfully updated";
