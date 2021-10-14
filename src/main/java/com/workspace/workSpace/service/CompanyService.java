@@ -21,10 +21,18 @@ public class CompanyService {
     public String addCompany(String companyName, String companyEmail, String companyPhone,
                              String companyOfficeAddress, String companyUsername,
                              String companyPassword, Long numOfEmployees){
-        Company newCompany=new Company(companyName,companyEmail,companyPhone,companyOfficeAddress,
-                                        companyUsername,companyPassword,numOfEmployees);
-        companyRepository.save(newCompany);
-        return "Congratulations! "+companyName+" registered successfully.";
+        if (companyName.matches("^[A-Z][a-z]+") && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]+")
+                && companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
+                && companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
+                && companyPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
+                && companyEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")) {
+            Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
+                    companyUsername, companyPassword, numOfEmployees);
+            companyRepository.save(newCompany);
+            return "Congratulations! " + companyName + " registered successfully.";
+        }else
+            return "ERROR 404";
     }
 
     public String removeCompany(Long id){
