@@ -19,10 +19,13 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public String removeAdmin(Long id){
+    public String removeAdmin(Long id, String password){
         try {
-            adminRepository.deleteById(id);
-            return adminRepository.getById(id).getAdminUsername()+" removed.";
+            if (password.equals(adminRepository.getById(id).getAdminPassword())) {
+                adminRepository.deleteById(id);
+                return adminRepository.getById(id).getAdminUsername() + " removed.";
+            }else
+                return "Invalid password";
         }catch (NoSuchElementException e){
             return "ERROR 404";
         }

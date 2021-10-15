@@ -37,10 +37,13 @@ public class EmployeeService {
             return "ERROR 404";
     }
 
-    public String removeEmployee(Long id){
+    public String removeEmployee(Long id, String password){
         try {
-            employeeRepository.deleteById(id);
-            return employeeRepository.getById(id).getEmployeeUsername()+"'s profile removed.";
+            if (password.equals(employeeRepository.getById(id).getEmployeePassword())) {
+                employeeRepository.deleteById(id);
+                return employeeRepository.getById(id).getEmployeeUsername() + "'s profile removed.";
+            }else
+                return "Invalid password";
         }catch (NoSuchElementException e){
             return "ERROR 404";
         }
