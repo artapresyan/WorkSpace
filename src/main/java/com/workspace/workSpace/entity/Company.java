@@ -1,10 +1,12 @@
 package com.workspace.workSpace.entity;
 
+import com.workspace.workSpace.enums.User;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "companies")
+@Table(name = "users")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,9 @@ public class Company {
 
     @Column(name = "employees")
     private Long numOfEmployees;
+
+    @Column(name = "user_type", nullable = false)
+    private final String userCompany= User.Company.getUser();
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
     private List<Job> companyJobs;
@@ -120,5 +125,9 @@ public class Company {
 
     public void setCompanyJobs(List<Job> companyJobs) {
         this.companyJobs = companyJobs;
+    }
+
+    public String getUserCompany() {
+        return userCompany;
     }
 }

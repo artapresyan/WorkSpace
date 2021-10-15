@@ -1,9 +1,11 @@
 package com.workspace.workSpace.entity;
 
+import com.workspace.workSpace.enums.User;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "admins")
+@Table(name = "users")
 public class Admin {
 
     @Id
@@ -22,6 +24,9 @@ public class Admin {
 
     @Column(name = "phone",nullable = false)
     private String adminPhone;
+
+    @Column(name = "user_type", nullable = false)
+    private final String userAdmin= User.Admin.getUser();
 
     public Admin() {
     }
@@ -72,4 +77,9 @@ public class Admin {
     public void setAdminPhone(String adminPhone) {
         this.adminPhone = adminPhone;
     }
+
+    public String getUserAdmin() {
+        return userAdmin;
+    }
+
 }
