@@ -22,13 +22,13 @@ public class EmployeeService {
     public String addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
                               String employeeEmail, String employeePhone, LocalDate employeeBirthData,
                               String employeeUsername, String employeePassword){
-        if (employeeName.matches("^[A-Z][a-z]+") && employeeSurname.matches("^[A-Z][a-z]+")
-                &&employeeJobCategory.matches("[a-zA-z\\s]")
-                && employeeUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
+        if (employeeName.matches("^[A-Z][a-z]{2,15}") && employeeSurname.matches("^[A-Z][a-z]{2,25}")
+                && employeeJobCategory.matches("[a-zA-z\\s]{2,20}")
+                && employeeUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}")
                 && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                 && employeePhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]" +
                 "|[95]|[94]|[93]|[91]|[77]|[55]|[44]|[43]|[41]|[33]){2}[0-9]{6}")
-                && employeeEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")){
+                && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]{2,15}\\.[a-z]{2,3}")){
             Employee newEmployee=new Employee(employeeName,employeeSurname,employeeJobCategory,employeeEmail,
                     employeePhone,employeeBirthData,employeeUsername,employeePassword);
             employeeRepository.save(newEmployee);
@@ -51,19 +51,20 @@ public class EmployeeService {
                                String employeeUsername, String employeePassword){
         try {
             Employee newEmployee = employeeRepository.getById(id);
-            if (employeeName !=null)
+            if (employeeName.matches("^[A-Z][a-z]{2,15}"))
                 newEmployee.setEmployeeName(employeeName);
-            if (employeeSurname !=null)
+            if (employeeSurname.matches("^[A-Z][a-z]{2,25}"))
                 newEmployee.setEmployeeSurname(employeeSurname);
-            if (employeeEmail !=null)
+            if (employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]{2,15}\\.[a-z]{2,3}"))
                 newEmployee.setEmployeeEmail(employeeEmail);
-            if (employeeUsername !=null)
+            if (employeeUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}"))
                 newEmployee.setEmployeeUsername(employeeUsername);
-            if (employeePassword !=null)
+            if (employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
                 newEmployee.setEmployeePassword(employeePassword);
-            if (employeeJobCategory !=null)
+            if ( employeeJobCategory.matches("[a-zA-z\\s]{2,20}"))
                 newEmployee.setEmployeeJobCategory(employeeJobCategory);
-            if (employeePhone!=null)
+            if (employeePhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]" +
+                    "|[95]|[94]|[93]|[91]|[77]|[55]|[44]|[43]|[41]|[33]){2}[0-9]{6}"))
                 newEmployee.setEmployeePhone(employeePhone);
             if (employeeBirthData!=null)
                 newEmployee.setEmployeeBirthData(employeeBirthData);
