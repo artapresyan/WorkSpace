@@ -1,7 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name = "jobs")
@@ -34,10 +34,6 @@ public class Job {
 
     @Column(name = "contact_us", nullable = false)
     private String jobContacts;
-
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinColumn(name = "company_id")
-    private Company company;
 
     public Job() {
     }
@@ -127,11 +123,4 @@ public class Job {
         this.jobContacts = jobContacts;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
 }
