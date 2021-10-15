@@ -21,12 +21,12 @@ public class CompanyService {
     public String addCompany(String companyName, String companyEmail, String companyPhone,
                              String companyOfficeAddress, String companyUsername,
                              String companyPassword, Long numOfEmployees){
-        if (companyName.matches("^[A-Z][a-z]+") && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]+")
-                && companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
+        if (companyName.matches("^[A-Z][a-z]{2,}") && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]{4,45}")
+                && companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}")
                 && companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                 && companyPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                     "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
-                && companyEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")) {
+                && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")) {
             Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
                     companyUsername, companyPassword, numOfEmployees);
             companyRepository.save(newCompany);
@@ -49,18 +49,18 @@ public class CompanyService {
                               String companyPassword, Long numOfEmployees){
         try {
             Company company = companyRepository.getById(id);
-            if (companyName.matches("^[A-Z][a-z]+"))
+            if (companyName.matches("^[A-Z][a-z]{2,}"))
                 company.setCompanyName(companyName);
             if ( companyPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                     "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
                 company.setCompanyPhone(companyPhone);
-            if (companyOfficeAddress.matches("[\\w,/\\s&&[^_]]+"))
+            if (companyOfficeAddress.matches("[\\w,/\\s&&[^_]]{4,45}"))
                 company.setCompanyOfficeAddress(companyOfficeAddress);
-            if (companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}"))
+            if (companyUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}"))
                 company.setCompanyUsername(companyUsername);
             if (companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
                 company.setCompanyPassword(companyPassword);
-            if (companyEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
+            if (companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
                 company.setCompanyEmail(companyEmail);
             if (numOfEmployees!=0)
                 company.setNumOfEmployees(numOfEmployees);

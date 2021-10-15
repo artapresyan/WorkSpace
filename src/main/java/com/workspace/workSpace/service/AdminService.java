@@ -29,11 +29,11 @@ public class AdminService {
     }
 
     public String addAdmin(String adminUsername, String adminPassword, String adminEmail, String adminPhone){
-        if (adminUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")
+        if (adminUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}")
                 && adminPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                 && adminPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                 "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
-                && adminEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")) {
+                && adminEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}")) {
             Admin newAdmin = new Admin(adminUsername, adminPassword, adminEmail, adminPhone);
             adminRepository.save(newAdmin);
             return "Congratulations! " + adminUsername + " registered successfully.";
@@ -45,13 +45,13 @@ public class AdminService {
     throws InvalidParameterException{
         try {
             Admin admin= adminRepository.getById(id);
-            if (adminUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,}")) {
+            if (adminUsername.matches("[a-z]{7,}|[a-z]{3,}[a-z0-9]{4,30}")) {
                 admin.setAdminUsername(adminUsername);
             }
             if (adminPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" +
                     "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
                 admin.setAdminPassword(adminPassword);
-            if (adminEmail.matches("^[a-z][a-z0-9-_\\.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
+            if (adminEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z]{2,3}"))
                 admin.setAdminEmail(adminEmail);
             if (adminPhone.matches("([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                     "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
