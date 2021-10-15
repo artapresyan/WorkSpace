@@ -31,11 +31,11 @@ public class Company {
     @Column(name = "password", nullable = false)
     private String companyPassword;
 
-    @Column(name = "employees")
+    @Column(name = "number_of_employees")
     private Long numOfEmployees;
 
     @Column(name = "user_type", nullable = false)
-    private final String userCompany= User.Company.getUser();
+    private final User userCompany= User.Company;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
     private List<Job> companyJobs;
@@ -127,7 +127,7 @@ public class Company {
         this.companyJobs = companyJobs;
     }
 
-    public String getUserCompany() {
+    public User getUserCompany() {
         return userCompany;
     }
 }

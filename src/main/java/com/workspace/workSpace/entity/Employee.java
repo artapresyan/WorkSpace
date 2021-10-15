@@ -39,7 +39,7 @@ public class Employee {
     private String employeePassword;
 
     @Column(name = "user_type", nullable = false)
-    private final String userEmployee= User.Employee.getUser();
+    private final User userEmployee= User.Employee;
 
     public Employee() {
     }
@@ -129,7 +129,7 @@ public class Employee {
         this.employeeJobCategory = employeeWorkSector;
     }
 
-    public String getUserEmployee() {
+    public User getUserEmployee() {
         return userEmployee;
     }
 }

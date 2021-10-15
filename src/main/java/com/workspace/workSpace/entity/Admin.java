@@ -26,7 +26,7 @@ public class Admin {
     private String adminPhone;
 
     @Column(name = "user_type", nullable = false)
-    private final String userAdmin= User.Admin.getUser();
+    private final User userAdmin= User.Admin;
 
     public Admin() {
     }
@@ -78,7 +78,7 @@ public class Admin {
         this.adminPhone = adminPhone;
     }
 
-    public String getUserAdmin() {
+    public User getUserAdmin() {
         return userAdmin;
     }
 
