@@ -1,7 +1,5 @@
 package com.workspace.workSpace.entity;
 
-import com.workspace.workSpace.enums.User;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,9 +22,6 @@ public class Admin {
 
     @Column(name = "phone",nullable = false)
     private String adminPhone;
-
-    @Column(name = "user_type", nullable = false)
-    private final User userAdmin= User.Admin;
 
     public Admin() {
     }
@@ -78,8 +73,5 @@ public class Admin {
         this.adminPhone = adminPhone;
     }
 
-    public User getUserAdmin() {
-        return userAdmin;
-    }
 
 }

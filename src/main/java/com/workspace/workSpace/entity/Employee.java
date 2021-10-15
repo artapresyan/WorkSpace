@@ -1,7 +1,5 @@
 package com.workspace.workSpace.entity;
 
-import com.workspace.workSpace.enums.User;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -37,9 +35,6 @@ public class Employee {
 
     @Column(name = "password",nullable = false)
     private String employeePassword;
-
-    @Column(name = "user_type", nullable = false)
-    private final User userEmployee= User.Employee;
 
     public Employee() {
     }
@@ -129,9 +124,6 @@ public class Employee {
         this.employeeJobCategory = employeeWorkSector;
     }
 
-    public User getUserEmployee() {
-        return userEmployee;
-    }
 }
 
 

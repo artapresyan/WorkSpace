@@ -1,12 +1,9 @@
 package com.workspace.workSpace.entity;
 
-import com.workspace.workSpace.enums.User;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "companies")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,20 +29,14 @@ public class Company {
     private String companyPassword;
 
     @Column(name = "number_of_employees")
-    private Long numOfEmployees;
-
-    @Column(name = "user_type", nullable = false)
-    private final User userCompany= User.Company;
-
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
-    private List<Job> companyJobs;
+    private int numOfEmployees;
 
     public Company() {
     }
 
     public Company(String companyName, String companyEmail, String companyPhone,
                    String companyOfficeAddress, String companyUsername,
-                   String companyPassword, Long numOfEmployees) {
+                   String companyPassword, int numOfEmployees) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
@@ -111,23 +102,12 @@ public class Company {
         this.companyPassword = companyPassword;
     }
 
-    public Long getNumOfEmployees() {
+    public int getNumOfEmployees() {
         return numOfEmployees;
     }
 
-    public void setNumOfEmployees(Long numOfEmployees) {
+    public void setNumOfEmployees(int numOfEmployees) {
         this.numOfEmployees = numOfEmployees;
     }
 
-    public List<Job> getCompanyJobs() {
-        return companyJobs;
-    }
-
-    public void setCompanyJobs(List<Job> companyJobs) {
-        this.companyJobs = companyJobs;
-    }
-
-    public User getUserCompany() {
-        return userCompany;
-    }
 }
