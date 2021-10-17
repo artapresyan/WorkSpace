@@ -28,22 +28,18 @@ public class Company {
     @Column(name = "password", nullable = false)
     private String companyPassword;
 
-    @Column(name = "number_of_employees")
-    private int numOfEmployees;
-
     public Company() {
     }
 
     public Company(String companyName, String companyEmail, String companyPhone,
                    String companyOfficeAddress, String companyUsername,
-                   String companyPassword, int numOfEmployees) {
+                   String companyPassword) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
         this.companyOfficeAddress = companyOfficeAddress;
         this.companyUsername = companyUsername;
         this.companyPassword = companyPassword;
-        this.numOfEmployees = numOfEmployees;
     }
 
     public Long getCompanyId() {
@@ -100,14 +96,6 @@ public class Company {
 
     public void setCompanyPassword(String companyPassword) {
         this.companyPassword = companyPassword;
-    }
-
-    public int getNumOfEmployees() {
-        return numOfEmployees;
-    }
-
-    public void setNumOfEmployees(int numOfEmployees) {
-        this.numOfEmployees = numOfEmployees;
     }
 
 }

@@ -3,7 +3,7 @@ package com.workspace.workSpace.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "admins")
 public class Admin {
 
     @Id
