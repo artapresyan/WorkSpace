@@ -23,18 +23,17 @@ public class CompanyController {
     @PostMapping("/add")
     public String addNewCompany(@RequestParam String companyName,@RequestParam String companyEmail,
                                 @RequestParam String companyPhone, @RequestParam String companyOfficeAddress,
-                                @RequestParam String companyUsername, @RequestParam String companyPassword,
-                                @RequestParam(required = false) int numOfEmployees) {
+                                @RequestParam String companyUsername, @RequestParam String companyPassword) {
         return companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
-                companyPassword, numOfEmployees);
+                companyPassword);
     }
     @PutMapping("/edit")
     public String editCompanyInfo(@RequestParam(required = false) String companyName,@RequestParam(required = false) String companyEmail,
                                   @RequestParam(required = false) String companyPhone, @RequestParam(required = false) String companyOfficeAddress,
                                   @RequestParam(required = false) String companyUsername, @RequestParam(required = false) String companyPassword,
-                                  @RequestParam(required = false) int numOfEmployees, @RequestParam Long id){
+                                  @RequestParam Long id) {
         return companyService.editCompany(id, companyName, companyEmail, companyPhone, companyOfficeAddress,
-                companyUsername, companyPassword, numOfEmployees);
+                companyUsername, companyPassword);
     }
 
     @DeleteMapping("/remove")
