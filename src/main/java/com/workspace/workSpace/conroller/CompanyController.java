@@ -37,7 +37,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/remove")
-    public String removeCompany(@RequestParam Long id,@RequestParam String password){
-        return companyService.removeCompany(id,password);
+    public String removeCompany(@RequestParam Long id,@RequestParam String companyPassword){
+        return companyService.removeCompany(id,companyPassword);
     }
 }

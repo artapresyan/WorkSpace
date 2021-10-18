@@ -35,11 +35,12 @@ public class CompanyService {
         return "ERROR 404";
     }
 
-    public String removeCompany(Long id, String password){
+    public String removeCompany(Long id, String companyPassword){
         try {
-            if (password.equals(companyRepository.getById(id).getCompanyPassword())) {
+            if (companyPassword.equals(companyRepository.getById(id).getCompanyPassword())) {
+                String name=companyRepository.getById(id).getCompanyName();
                 companyRepository.deleteById(id);
-                return companyRepository.getById(id).getCompanyName() + " removed.";
+                return  name + " removed.";
             }else
                 return "Invalid Password";
         }catch (NoSuchElementException e){
