@@ -2,6 +2,7 @@ package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "employees")
@@ -40,14 +41,16 @@ public class Employee {
     }
 
     public Employee(String employeeName, String employeeSurname, String employeeJobCategory,
-                    String employeeEmail, String employeePhone, LocalDate employeeBirthData,
+                    String employeeEmail, String employeePhone, String employeeBirthData,
                     String employeeUsername, String employeePassword) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
+        LocalDate birthdate =LocalDate.parse(employeeBirthData,dateFormat);
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
         this.employeeJobCategory = employeeJobCategory;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
-        this.employeeBirthData = employeeBirthData;
+        this.employeeBirthData = birthdate;
         this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
     }
@@ -96,8 +99,10 @@ public class Employee {
         return employeeBirthData;
     }
 
-    public void setEmployeeBirthData(LocalDate employeeBirthData) {
-        this.employeeBirthData = employeeBirthData;
+    public void setEmployeeBirthData(String employeeBirthData) {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
+        LocalDate birthdate =LocalDate.parse(employeeBirthData,dateFormat);
+        this.employeeBirthData = birthdate;
     }
 
     public String getEmployeeUsername() {
