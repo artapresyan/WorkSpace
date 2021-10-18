@@ -33,10 +33,10 @@ public class EmployeeController {
     public String editEmployee(@RequestParam(required = false) String employeeName,@RequestParam(required = false) String employeeSurname,
                                @RequestParam(required = false) String employeeJobCategory,@RequestParam(required = false) String employeeEmail,
                                @RequestParam(required = false) String employeePhone, @RequestParam(required = false) String employeeBirthData,
-                               @RequestParam(required = false) String employeeUsername,@RequestParam(required = false) String employeePassword,
-                               @RequestParam Long employeeId){
-        return employeeService.editEmployee(employeeId, employeeName, employeeSurname, employeeJobCategory,
-                employeeEmail, employeePhone, employeeBirthData, employeeUsername, employeePassword);
+                               @RequestParam(required = false) String employeeUsername,@RequestParam(required = false) String newEmployeePassword,
+                               @RequestParam Long employeeId, @RequestParam String employeePassword){
+        return employeeService.editEmployee(employeeId, employeeName, employeeSurname, employeeJobCategory, employeeEmail,
+                employeePhone, employeeBirthData, employeeUsername, employeePassword, newEmployeePassword);
     }
     @DeleteMapping("/remove")
     public String removeEmployee(@RequestParam Long employeeId, @RequestParam String employeePassword){

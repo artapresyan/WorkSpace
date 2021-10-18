@@ -43,20 +43,23 @@ public class AdminService {
             return "ERROR 404";
     }
 
-    public String editAdmin(Long adminId, String adminUsername, String adminPassword, String adminEmail, String adminPhone) {
+    public String editAdmin(Long adminId, String adminUsername, String adminPassword,String newAdminPassword, String adminEmail, String adminPhone) {
         try {
             Admin admin= adminRepository.getById(adminId);
-            if (adminUsername!=null && adminUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$"))
-                admin.setAdminUsername(adminUsername);
-            if (adminPassword!=null && adminPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
-                admin.setAdminPassword(adminPassword);
-            if (adminEmail!=null && adminEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}"))
-                admin.setAdminEmail(adminEmail);
-            if (adminPhone!=null && adminPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]|[91]|[77]|[60]|[55]|[44]|[43]|[41]" +
-                    "|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
-                admin.setAdminPhone(adminPhone);
-            adminRepository.save(admin);
-            return "Information successfully updated";
+            if (admin.getAdminPassword().equals(adminPassword)) {
+                if (adminUsername != null && adminUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$"))
+                    admin.setAdminUsername(adminUsername);
+                if (newAdminPassword != null && newAdminPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
+                    admin.setAdminPassword(newAdminPassword);
+                if (adminEmail != null && adminEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}"))
+                    admin.setAdminEmail(adminEmail);
+                if (adminPhone != null && adminPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]|[91]|[77]|[60]|[55]|[44]|[43]|[41]" +
+                        "|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
+                    admin.setAdminPhone(adminPhone);
+                adminRepository.save(admin);
+                return "Information successfully updated";
+            }else
+                return "Invalid password";
         }catch (NoSuchElementException e){
             return "ERROR 404";
         }

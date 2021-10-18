@@ -30,10 +30,10 @@ public class CompanyController {
     @PutMapping("/edit")
     public String editCompanyInfo(@RequestParam(required = false) String companyName,@RequestParam(required = false) String companyEmail,
                                   @RequestParam(required = false) String companyPhone, @RequestParam(required = false) String companyOfficeAddress,
-                                  @RequestParam(required = false) String companyUsername, @RequestParam(required = false) String companyPassword,
-                                  @RequestParam Long companyId) {
+                                  @RequestParam(required = false) String companyUsername, @RequestParam(required = false) String newCompanyPassword,
+                                  @RequestParam Long companyId,@RequestParam String companyPassword) {
         return companyService.editCompany(companyId, companyName, companyEmail, companyPhone, companyOfficeAddress,
-                companyUsername, companyPassword);
+                companyUsername, companyPassword, newCompanyPassword);
     }
 
     @DeleteMapping("/remove")

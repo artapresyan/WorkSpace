@@ -26,10 +26,10 @@ public class AdminController {
     }
 
     @PutMapping("/edit")
-    public String editAdmin(@RequestParam(required = false) String adminUsername,@RequestParam(required = false) String adminPassword,
+    public String editAdmin(@RequestParam(required = false) String adminUsername,@RequestParam(required = false) String newAdminPassword,
                             @RequestParam(required = false) String adminEmail,@RequestParam(required = false) String adminPhone,
-                            @RequestParam Long adminId){
-       return adminService.editAdmin(adminId,adminUsername,adminPassword,adminEmail,adminPhone);
+                            @RequestParam Long adminId,@RequestParam String adminPassword){
+       return adminService.editAdmin(adminId, adminUsername, adminPassword, newAdminPassword, adminEmail, adminPhone);
     }
 
     @DeleteMapping("/remove")
