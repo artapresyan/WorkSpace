@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class JobsService {
+public class JobService {
     @Autowired
     JobRepository jobRepository;
 
@@ -17,10 +17,10 @@ public class JobsService {
         return jobRepository.findAll();
     }
 
-    public String removeJob(Long id){
+    public String removeJob(Long jobId){
         try {
-            jobRepository.deleteById(id);
-            return jobRepository.getById(id).getJobTitle()+" job removed.";
+            jobRepository.deleteById(jobId);
+            return jobRepository.getById(jobId).getJobTitle()+" job removed.";
         }catch (NoSuchElementException e){
             return "ERROR 404";
         }
@@ -29,14 +29,13 @@ public class JobsService {
     public String addJob(String jobTitle, String jobType, String jobLocation, String jobCategory,
                          String jobDescription, String jobResponsibilities, String jobQualifications,
                          String jobContacts){
-        if (jobTitle.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{15,50}") && jobType.matches("[a-zA-z-]{7,12}")
-                && jobLocation.matches("[\\w\\s,/&&[^_]]{8,45}") && jobCategory.matches("[a-zA-z\\s]{2,20}")
+        if (jobTitle.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{15,50}") && jobType.matches("[a-zA-z-]{4,}")
+                && jobLocation.matches("[\\w\\s,/&&[^_]]{5,}") && jobCategory.matches("[a-zA-z\\s]{2,}")
                 && jobDescription.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{30,}")
                 && jobResponsibilities.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{20,}")
                 && jobQualifications.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{10,}")
-                && jobContacts.matches("(([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}) | (^[a-z][a-z0-9-_.]+" +
-                "[a-z0-9]+@[a-z]+\\.[a-z]{2,3})")) {
+                && jobContacts.matches("(374([99]|[98]|[97]|[96]|[95]|[94]|[93]|[91]|[77]|[60]|[55]|[44]|[43]|" +
+                "[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}) | (^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,})")) {
             Job newJob = new Job(jobTitle, jobType, jobLocation, jobCategory, jobDescription,
                     jobResponsibilities, jobQualifications, jobContacts);
             jobRepository.save(newJob);
@@ -45,18 +44,18 @@ public class JobsService {
             return "ERROR 404";
     }
 
-    public String editJob(Long id, String jobTitle, String jobType, String jobLocation, String jobCategory,
+    public String editJob(Long jobId, String jobTitle, String jobType, String jobLocation, String jobCategory,
                           String jobDescription, String jobResponsibilities, String jobQualifications,
                           String jobContacts){
         try{
-            Job job=jobRepository.getById(id);
+            Job job=jobRepository.getById(jobId);
             if (jobTitle.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{15,50}"))
                 job.setJobTitle(jobTitle);
-            if (jobType.matches("[a-zA-z-]{7,12}"))
+            if (jobType.matches("[a-zA-z-]{4,}"))
                 job.setJobType(jobType);
-            if (jobLocation.matches("[\\w\\s,/&&[^_]]{8,45}"))
+            if (jobLocation.matches("[\\w\\s,/&&[^_]]{5,}"))
                 job.setJobLocation(jobLocation);
-            if (jobCategory.matches("[a-zA-z\\s]{2,20}"))
+            if (jobCategory.matches("[a-zA-z\\s]{2,}"))
                 job.setJobCategory(jobCategory);
             if (jobDescription.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{30,}"))
                 job.setJobDescription(jobDescription);
@@ -64,9 +63,8 @@ public class JobsService {
                 job.setJobResponsibilities(jobResponsibilities);
             if (jobQualifications.matches("[\\w\\s-+:!@#$%&*={};.,`()/'<>\\[\\]]{10,}"))
                 job.setJobQualifications(jobQualifications);
-            if (jobContacts.matches("(([0]|[374]{3}|[+374]{4})([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}) | (^[a-z][a-z0-9-_.]" +
-                    "[a-z0-9]+@[a-z]+\\.[a-z]{2,3})"))
+            if (jobContacts.matches("(374([99]|[98]|[97]|[96]|[95]|[94]|[93]|[91]|[77]|[60]|[55]|[44]|[43]|" +
+                    "[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}) | (^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,})"))
                 job.setJobContacts(jobContacts);
             jobRepository.save(job);
             return "Information successfully updated";
