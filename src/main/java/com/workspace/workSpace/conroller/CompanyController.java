@@ -31,13 +31,13 @@ public class CompanyController {
     public String editCompanyInfo(@RequestParam(required = false) String companyName,@RequestParam(required = false) String companyEmail,
                                   @RequestParam(required = false) String companyPhone, @RequestParam(required = false) String companyOfficeAddress,
                                   @RequestParam(required = false) String companyUsername, @RequestParam(required = false) String companyPassword,
-                                  @RequestParam Long id) {
-        return companyService.editCompany(id, companyName, companyEmail, companyPhone, companyOfficeAddress,
+                                  @RequestParam Long companyId) {
+        return companyService.editCompany(companyId, companyName, companyEmail, companyPhone, companyOfficeAddress,
                 companyUsername, companyPassword);
     }
 
     @DeleteMapping("/remove")
-    public String removeCompany(@RequestParam Long id,@RequestParam String companyPassword){
-        return companyService.removeCompany(id,companyPassword);
+    public String removeCompany(@RequestParam Long companyId,@RequestParam String companyPassword){
+        return companyService.removeCompany(companyId,companyPassword);
     }
 }

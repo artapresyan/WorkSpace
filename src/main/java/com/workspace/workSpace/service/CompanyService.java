@@ -35,11 +35,11 @@ public class CompanyService {
         return "ERROR 404";
     }
 
-    public String removeCompany(Long id, String companyPassword){
+    public String removeCompany(Long companyId, String companyPassword){
         try {
-            if (companyPassword.equals(companyRepository.getById(id).getCompanyPassword())) {
-                String name=companyRepository.getById(id).getCompanyName();
-                companyRepository.deleteById(id);
+            if (companyPassword.equals(companyRepository.getById(companyId).getCompanyPassword())) {
+                String name=companyRepository.getById(companyId).getCompanyName();
+                companyRepository.deleteById(companyId);
                 return  name + " removed.";
             }else
                 return "Invalid Password";
@@ -48,11 +48,11 @@ public class CompanyService {
         }
     }
 
-    public String editCompany(Long id,String companyName, String companyEmail, String companyPhone,
+    public String editCompany(Long companyId,String companyName, String companyEmail, String companyPhone,
                               String companyOfficeAddress, String companyUsername,
                               String companyPassword){
         try {
-            Company company = companyRepository.getById(id);
+            Company company = companyRepository.getById(companyId);
             if (companyName!=null && companyName.matches(".{2,}"))
                 company.setCompanyName(companyName);
             if (companyPhone!=null && companyPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +

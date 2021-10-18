@@ -40,8 +40,9 @@ public class EmployeeService {
     public String removeEmployee(Long id, String password){
         try {
             if (password.equals(employeeRepository.getById(id).getEmployeePassword())) {
+                String name = employeeRepository.getById(id).getEmployeeUsername();
                 employeeRepository.deleteById(id);
-                return employeeRepository.getById(id).getEmployeeUsername() + "'s profile removed.";
+                return name + "'s profile removed.";
             }else
                 return "Invalid password";
         }catch (NoSuchElementException e){
