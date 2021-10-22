@@ -3,6 +3,7 @@ package com.workspace.workSpace.service;
 import com.workspace.workSpace.entity.Company;
 import com.workspace.workSpace.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +28,10 @@ public class CompanyService {
                 && companyPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                 "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
                 && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")) {
+            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+            String bCryptCompanyPassword=bCryptPasswordEncoder.encode(companyPassword);
             Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
-                    companyUsername, companyPassword);
+                    companyUsername, bCryptCompanyPassword);
             companyRepository.save(newCompany);
             return "Congratulations! " + companyName + " registered successfully.";
         } else
@@ -37,7 +40,8 @@ public class CompanyService {
 
     public String removeCompany(Long companyId, String companyPassword){
         try {
-            if (companyPassword.equals(companyRepository.getById(companyId).getCompanyPassword())) {
+            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+            if (bCryptPasswordEncoder.matches(companyPassword,companyRepository.getById(companyId).getCompanyPassword())) {
                 String name=companyRepository.getById(companyId).getCompanyName();
                 companyRepository.deleteById(companyId);
                 return  name + " removed.";
@@ -53,7 +57,8 @@ public class CompanyService {
                               String companyPassword, String newCompanyPassword){
         try {
             Company company = companyRepository.getById(companyId);
-            if (company.getCompanyPassword().equals(companyPassword)) {
+            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+            if (bCryptPasswordEncoder.matches(companyPassword,company.getCompanyPassword())) {
                 if (companyName != null && companyName.matches(".{2,}"))
                     company.setCompanyName(companyName);
                 if (companyPhone != null && companyPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
@@ -63,8 +68,11 @@ public class CompanyService {
                     company.setCompanyOfficeAddress(companyOfficeAddress);
                 if (companyUsername != null && companyUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$"))
                     company.setCompanyUsername(companyUsername);
-                if (newCompanyPassword != null && newCompanyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$"))
-                    company.setCompanyPassword(newCompanyPassword);
+                if (newCompanyPassword != null && newCompanyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" +
+                        "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
+                    String bCryptNewCompanyPassword=bCryptPasswordEncoder.encode(newCompanyPassword);
+                    company.setCompanyPassword(bCryptNewCompanyPassword);
+                }
                 if (companyEmail != null && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}"))
                     company.setCompanyEmail(companyEmail);
                 companyRepository.save(company);
