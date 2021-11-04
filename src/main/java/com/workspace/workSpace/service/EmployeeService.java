@@ -20,11 +20,13 @@ public class EmployeeService {
 
     public String addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
                               String employeeEmail, String employeePhone, String employeeBirthData,
-                              String employeeUsername, String employeePassword){
+                              String employeeUsername, String employeePassword, String employeeGender,
+                              String employeePasswordConfirmation){
         if (employeeName.matches("^[A-Z][a-z]{2,20}$") && employeeSurname.matches("^[A-Z][a-z]{2,30}$")
                 && employeeJobCategory.matches("[a-zA-z\\s]{2,}")
                 && employeeUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
                 && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
+                && employeePasswordConfirmation.matches(employeePassword)
                 && employeePhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
                 "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
                 && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
@@ -33,7 +35,7 @@ public class EmployeeService {
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
             String bCryptEmployeePassword=bCryptPasswordEncoder.encode(employeePassword);
             Employee newEmployee=new Employee(employeeName,employeeSurname,employeeJobCategory,employeeEmail,
-                    employeePhone,employeeBirthData,employeeUsername,bCryptEmployeePassword);
+                    employeePhone,employeeBirthData,employeeUsername,bCryptEmployeePassword,employeeGender);
             employeeRepository.save(newEmployee);
             return "Congratulations Mr."+employeeSurname+"! "+"Now you are a member of WorkSpace.";
         }else
@@ -56,7 +58,8 @@ public class EmployeeService {
 
     public String editEmployee(Long employeeId,String employeeName, String employeeSurname, String employeeJobCategory,
                                String employeeEmail, String employeePhone, String employeeBirthData,
-                               String employeeUsername, String employeePassword,String newEmployeePassword){
+                               String employeeUsername, String employeePassword,String newEmployeePassword,
+                               String employeeGender){
         try {
             Employee employee = employeeRepository.getById(employeeId);
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
@@ -82,6 +85,8 @@ public class EmployeeService {
                 if (employeeBirthData != null && employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]" +
                         "|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])"))
                     employee.setEmployeeBirthData(employeeBirthData);
+                if (employeeGender!=null)
+                    employee.setEmployeeGender(employeeGender);
                 employeeRepository.save(employee);
                 return "Information successfully updated";
             }else

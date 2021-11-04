@@ -37,12 +37,15 @@ public class Employee {
     @Column(name = "password",nullable = false)
     private String employeePassword;
 
+    @Column(name = "Gender")
+    private String employeeGender;
+
     public Employee() {
     }
 
     public Employee(String employeeName, String employeeSurname, String employeeJobCategory,
                     String employeeEmail, String employeePhone, String employeeBirthData,
-                    String employeeUsername, String employeePassword) {
+                    String employeeUsername, String employeePassword,String employeeGender) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
         LocalDate birthdate =LocalDate.parse(employeeBirthData,dateFormat);
         this.employeeName = employeeName;
@@ -53,6 +56,7 @@ public class Employee {
         this.employeeBirthData = birthdate;
         this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
+        this.employeeGender=employeeGender;
     }
 
     public Long getEmployeeId() {
@@ -101,8 +105,7 @@ public class Employee {
 
     public void setEmployeeBirthData(String employeeBirthData) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
-        LocalDate birthdate =LocalDate.parse(employeeBirthData,dateFormat);
-        this.employeeBirthData = birthdate;
+        this.employeeBirthData = LocalDate.parse(employeeBirthData,dateFormat);
     }
 
     public String getEmployeeUsername() {
@@ -127,6 +130,14 @@ public class Employee {
 
     public void setEmployeeJobCategory(String employeeWorkSector) {
         this.employeeJobCategory = employeeWorkSector;
+    }
+
+    public String getEmployeeGender() {
+        return employeeGender;
+    }
+
+    public void setEmployeeGender(String employeeGender) {
+        this.employeeGender = employeeGender;
     }
 
 }

@@ -24,19 +24,22 @@ public class EmployeeController {
                               @RequestParam String employeeJobCategory,@RequestParam String employeeEmail,
                               @RequestParam(required = false) String employeePhone,
                               @RequestParam(required = false) String employeeBirthData,
-                              @RequestParam String employeeUsername,@RequestParam String employeePassword){
+                              @RequestParam String employeeUsername,@RequestParam String employeePassword,
+                              @RequestParam(required = false) String employeeGender,
+                              @RequestParam String employeePasswordConfirmation){
         return employeeService.addEmployee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
-                employeePhone, employeeBirthData, employeeUsername, employeePassword);
+                employeePhone, employeeBirthData, employeeUsername, employeePassword,employeeGender,employeePasswordConfirmation);
     }
 
     @PutMapping("/edit")
-    public String editEmployee(@RequestParam(required = false) String employeeName,@RequestParam(required = false) String employeeSurname,
-                               @RequestParam(required = false) String employeeJobCategory,@RequestParam(required = false) String employeeEmail,
+    public String editEmployee(@RequestParam(required = false) String employeeName, @RequestParam(required = false) String employeeSurname,
+                               @RequestParam(required = false) String employeeJobCategory, @RequestParam(required = false) String employeeEmail,
                                @RequestParam(required = false) String employeePhone, @RequestParam(required = false) String employeeBirthData,
                                @RequestParam(required = false) String employeeUsername,@RequestParam(required = false) String newEmployeePassword,
-                               @RequestParam Long employeeId, @RequestParam String employeePassword){
+                               @RequestParam Long employeeId, @RequestParam String employeePassword,
+                               @RequestParam(required = false)String employeeGender){
         return employeeService.editEmployee(employeeId, employeeName, employeeSurname, employeeJobCategory, employeeEmail,
-                employeePhone, employeeBirthData, employeeUsername, employeePassword, newEmployeePassword);
+                employeePhone, employeeBirthData, employeeUsername, employeePassword, newEmployeePassword,employeeGender);
     }
     @DeleteMapping("/remove")
     public String removeEmployee(@RequestParam Long employeeId, @RequestParam String employeePassword){
