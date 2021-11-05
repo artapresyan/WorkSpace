@@ -17,4 +17,8 @@ public class TestingController {
     public String companyRegistrationModel(){
         return "company_registration_view";
     }
+    @GetMapping("/")
+    public String mainRegistrationModel(){
+        return "main_view";
+    }
 }
