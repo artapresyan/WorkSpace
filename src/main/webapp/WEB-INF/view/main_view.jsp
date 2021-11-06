@@ -271,22 +271,16 @@
                </form>
                <form action="#" class="signup">
                <div class="user-details">
-                  <input type="radio" name="gender" id="dot-1">
-                  <input type="radio" name="gender" id="dot-2"><br></>
-                  <span class="user-title"> I want to become a member of WorkSpace family as </span><br></>
-               <div class="category">
-                  <label for="dot-1">
-                    <span class="dot one"></span>
-                    <span class="user">Employee</span>
-                  </label><br>
-                  <label for="dot-2">
-                     <span class="dot two"></span>
-                     <span class="user">Company</span><br><br></>
-                  </label>
-               </div>
-                  <div class="field btn" style="margin-top:40px;">
-                     <div class="btn-layer"></div>
-                     <input type="submit" value="Continue">
+                  <span class="user-title"> I want to become a member of WorkSpace as </span><br></>
+                  <div class="field btn" style="margin-top:20px;">
+                      <div class="btn-layer">
+                        <a href="/registration/employee"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Employee</font></a>
+                      </div>
+                  </div>
+                  <div class="field btn" style="margin-top:30px;">
+                      <div class="btn-layer">
+                        <a href="/registration/company"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Company</font></a>
+                      </div>
                   </div>
                </form>
             </div>
