@@ -34,7 +34,7 @@
     }
     .container{
       max-width: 700px;
-      max-height: 690px;
+      max-height: 700px;
       width: 100%;
       height: 100%;
       background-color: #fff;
@@ -89,38 +89,11 @@
     .user-details .input-box input:valid{
       border-color: #9b59b6;
     }
-     form .gender-details .gender-title{
-      font-size: 20px;
-      font-weight: 500;
-     }
      form .category{
        display: flex;
        width: 80%;
        margin: 14px 0 ;
        justify-content: space-between;
-     }
-     form .category label{
-       display: flex;
-       align-items: center;
-       cursor: pointer;
-     }
-     form .category label .dot{
-      height: 18px;
-      width: 18px;
-      border-radius: 50%;
-      margin-right: 10px;
-      background: #d9d9d9;
-      border: 5px solid transparent;
-      transition: all 0.3s ease;
-    }
-     #dot-1:checked ~ .category label .one,
-     #dot-2:checked ~ .category label .two,
-     #dot-3:checked ~ .category label .three{
-       background: #9b59b6;
-       border-color: #d9d9d9;
-     }
-     form input[type="radio"]{
-       display: none;
      }
      form .button{
        height: 45px;
@@ -190,6 +163,10 @@
             <input type="text" placeholder="Abovyan" required>
           </div>
           <div class="input-box">
+            <span class="details">Birthday date</span>
+            <input type="text" placeholder="yyyy/mm/dd" required>
+          </div>
+          <div class="input-box">
             <span class="details">Email<font color="red">*</font></span>
             <input type="text" placeholder="example@gmail.com" required>
           </div>
@@ -227,33 +204,21 @@
             <span class="details">Username<font color="red">*</font></span>
             <input type="text" placeholder="username" required>
           </div>
+           <div class="input-box">
+                      <span class="details">Gender</span>
+                      <input list="gender" placeholder="Male/Female" required>
+                      <datalist id="gender">
+                        <option value="Male">
+                        <option value="Female">
+                      </datalist>
+                    </div>
           <div class="input-box">
-            <span class="details">Password<font color="red">*</font></span>
+            <span class="details">Password<font color="red">**</font></span>
             <input type="text" placeholder="Example08&" required>
           </div>
           <div class="input-box">
-            <span class="details">Confirm Password<font color="red">*</font></span>
+            <span class="details">Confirm Password<font color="red">**</font></span>
             <input type="text" placeholder="Confirm your password" required>
-          </div>
-        </div>
-        <div class="gender-details">
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
-          <span class="gender-title">Gender</span>
-          <div class="category">
-            <label for="dot-1">
-            <span class="dot one"></span>
-            <span class="gender">Male</span>
-          </label>
-          <label for="dot-2">
-            <span class="dot two"></span>
-            <span class="gender">Female</span>
-          </label>
-          <label for="dot-3">
-            <span class="dot three"></span>
-            <span class="gender">Prefer not to say</span>
-            </label>
           </div>
         </div>
         <div class="button">
