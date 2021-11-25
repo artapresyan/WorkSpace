@@ -11,12 +11,12 @@ public class TestingController {
         return "main_view";
     }
 
-    @GetMapping("/registration/employee")
+    @GetMapping("/employee")
     public String employeeRegistrationModel(){
         return "employee_registration_view";
     }
 
-    @GetMapping("/registration/company")
+    @GetMapping("/company")
     public String companyRegistrationModel(){
         return "company_registration_view";
     }
