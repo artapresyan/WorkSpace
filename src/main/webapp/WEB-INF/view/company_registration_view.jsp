@@ -174,77 +174,41 @@
   <div class="container">
     <div class="title">Complete steps to become a part of WorkSpace</div>
     <div class="content">
-      <form action="#">
+      <form action="company/home" method="POST" modelAttribute="Company">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Company Name<font color="red">*</font></span>
-            <input type="text" placeholder="WorkSpace" required>
+            <input type="text" placeholder="WorkSpace" name="companyName" required>
           </div>
           <div class="input-box">
             <span class="details">Email<font color="red">*</font></span>
-            <input type="text" placeholder="example@company.com" required>
+            <input type="text" placeholder="example@company.com" name="companyEmail" required>
           </div>
           <div class="input-box">
-            <span class="details">Phone </span>
-            <input type="text" placeholder="37410548607" required>
+            <span class="details">Phone<font color="red">*</font></span>
+            <input type="text" placeholder="37410548607" name="companyPhone" required>
           </div>
           <div class="input-box">
-            <span class="details">Office Address</span>
-            <input type="text" placeholder="Komitas Avenue 50/9" required>
+            <span class="details">Office Address<font color="red">*</font></span>
+            <input type="text" placeholder="Komitas Avenue 50/9" name="companyOfficeAddress" required>
           </div>
-          <div class="input-box">
-            <span class="details">Specialized in<font color="red">*</font></span>
-            <input list="brow" placeholder="Choose category..." required>
-            <datalist id="brow">
-              <option value="Agriculture/Food/Natural Resources">
-              <option value="Architecture/Construction">
-              <option value="Education/Training">
-              <option value="Administration/Business Management">
-              <option value="Arts/Audio/Video Technology">
-              <option value="Communications">
-              <option value="Finance/Banking">
-              <option value="Government/Public Administration">
-              <option value="Health/Medicine">
-              <option value="Human Services">
-              <option value="Software Development">
-              <option value="IT other">
-              <option value="Hospitality/Tourism">
-              <option value="Law">
-              <option value="Public Safety/Corrections/Security">
-              <option value="Manufacturing">
-              <option value="Marketing/Sales/Service">
-              <option value="Science/Technology/Engineering">
-              <option value="Transportation/Distribution/Logistics">
-              <option value="Other">
-            </datalist>
-          </div>
-          <div class="input-box">
-                    <span class="details">Gender</span>
-                       <input list="gender" placeholder="Male/Female" required>
-                         <datalist id="gender">
-                            <option value="Male" >
-                            <option value="Female" >
-                         </datalist>
-                  </div>
           <div class="input-box">
             <span class="details">Username<font color="red">*</font></span>
-            <input type="text" placeholder="username" required>
+            <input type="text" placeholder="username" name="companyUsername" required>
           </div>
           <div class="input-box">
             <span class="details">Password<font color="red">**</font></span>
-            <input type="text" placeholder="Example08&" required>
+            <input type="text" placeholder="Example08&" name="companyPassword" required>
           </div>
           <div class="input-box">
             <span class="details">Confirm Password<font color="red">**</font></span>
-            <input type="text" placeholder="Confirm your password" required>
+            <input type="text" placeholder="Confirm your password" name="companyPasswordConfirmation" required>
           </div>
-
-        </div>
-
-        <div class="button">
-          <input type="submit" value="Register"><br><br>
-          <p><font color="#A6A19F"><font color="red">*</font>Headings marked with an asterisk indicate that it is required to complete</font></p>
-          <p><font color="#A6A19F"><font color="red">**</font>Password must contain at least one upper case, number and special symbol</font></p>
+          <div class="button">
+                    <input type="submit" value="Register"><br><br>
+                    <p><font color="#A6A19F"><font color="red">*</font>Headings marked with an asterisk indicate that it is required to complete</font></p>
+                    <p><font color="#A6A19F"><font color="red">**</font>Password must contain at least one upper case, number and special symbol</font></p>
+          </div>
         </div>
       </form>
     </div>
