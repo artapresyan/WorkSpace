@@ -21,7 +21,7 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/home")
     public String addEmployee(Model model, @RequestParam() String employeeName, @RequestParam() String employeeSurname,
                               @RequestParam() String employeeJobCategory, @RequestParam() String employeeEmail,
                               @RequestParam(required = false) String employeePhone,
