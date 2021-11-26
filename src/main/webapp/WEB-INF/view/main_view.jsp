@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
    <head>
       <meta charset="utf-8">
-      <title>Login and Registration Form in HTML | CodingNepal</title>
+      <title>WorkSpace</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
@@ -254,12 +254,12 @@
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="#" class="login">
+               <form action="/login" class="login">
                   <div class="field">
-                     <input type="text" placeholder="Email or Username" required>
+                     <input type="text" placeholder="Username" name="username" required>
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="Password" required>
+                     <input type="password" placeholder="Password" name="password" required>
                   </div>
                   <div class="pass-link">
                      <a href="#">Forgot password?</a>

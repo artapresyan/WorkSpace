@@ -30,17 +30,16 @@ public class EmployeeController {
                               @RequestParam() String employeeGender, @RequestParam() String employeePasswordConfirmation) {
         employeeService.addEmployee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                 employeePhone, employeeBirthData, employeeUsername, employeePassword, employeeGender, employeePasswordConfirmation);
-        model.addAttribute("employeeName",employeeName);
-        model.addAttribute("employeeSurname",employeeSurname);
-        model.addAttribute("employeeJobCategory",employeeJobCategory);
-        model.addAttribute("employeeEmail",employeeEmail);
-        model.addAttribute("employeePhone",employeePhone);
-        model.addAttribute("employeeBirthData",employeeBirthData);
-        model.addAttribute("employeeUsername",employeeUsername);
-        model.addAttribute("employeePassword",employeePassword);
-        model.addAttribute("employeeGender",employeeGender);
-        model.addAttribute("employeePasswordConfirmation",employeePasswordConfirmation);
-
+        model.addAttribute("employeeName", employeeName);
+        model.addAttribute("employeeSurname", employeeSurname);
+        model.addAttribute("employeeJobCategory", employeeJobCategory);
+        model.addAttribute("employeeEmail", employeeEmail);
+        model.addAttribute("employeePhone", employeePhone);
+        model.addAttribute("employeeBirthData", employeeBirthData);
+        model.addAttribute("employeeUsername", employeeUsername);
+        model.addAttribute("employeePassword", employeePassword);
+        model.addAttribute("employeeGender", employeeGender);
+        model.addAttribute("employeePasswordConfirmation", employeePasswordConfirmation);
         return "employee_view";
     }
 
