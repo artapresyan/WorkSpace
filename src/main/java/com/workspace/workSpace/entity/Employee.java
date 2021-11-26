@@ -16,13 +16,13 @@ public class Employee {
     @Column(name = "name", nullable = false)
     private String employeeName;
 
-    @Column(name = "surname",nullable = false)
+    @Column(name = "surname", nullable = false)
     private String employeeSurname;
 
     @Column(name = "job_category", nullable = false)
     private String employeeJobCategory;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String employeeEmail;
 
     @Column(name = "phone")
@@ -31,10 +31,10 @@ public class Employee {
     @Column(name = "birth_date")
     private LocalDate employeeBirthData;
 
-    @Column(name = "username",nullable = false)
+    @Column(name = "username", nullable = false)
     private String employeeUsername;
 
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String employeePassword;
 
     @Column(name = "Gender")
@@ -45,18 +45,21 @@ public class Employee {
 
     public Employee(String employeeName, String employeeSurname, String employeeJobCategory,
                     String employeeEmail, String employeePhone, String employeeBirthData,
-                    String employeeUsername, String employeePassword,String employeeGender) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
-        LocalDate birthdate =LocalDate.parse(employeeBirthData,dateFormat);
+                    String employeeUsername, String employeePassword, String employeeGender) {
+        if (employeeBirthData != null && employeeBirthData.length() != 0) {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
+            this.employeeBirthData = LocalDate.parse(employeeBirthData, dateFormat);
+        } else {
+            this.employeeBirthData = null;
+        }
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
         this.employeeJobCategory = employeeJobCategory;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
-        this.employeeBirthData = birthdate;
         this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
-        this.employeeGender=employeeGender;
+        this.employeeGender = employeeGender;
     }
 
     public Long getEmployeeId() {
@@ -96,7 +99,10 @@ public class Employee {
     }
 
     public void setEmployeePhone(String employeePhone) {
-        this.employeePhone = employeePhone;
+        if (employeePhone.length() == 0)
+            this.employeePhone = null;
+        else
+            this.employeePhone = employeePhone;
     }
 
     public LocalDate getEmployeeBirthData() {
@@ -104,8 +110,12 @@ public class Employee {
     }
 
     public void setEmployeeBirthData(String employeeBirthData) {
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
-        this.employeeBirthData = LocalDate.parse(employeeBirthData,dateFormat);
+        if (employeeBirthData.length() == 0) {
+            this.employeeBirthData = null;
+        } else {
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
+            this.employeeBirthData = LocalDate.parse(employeeBirthData, dateFormat);
+        }
     }
 
     public String getEmployeeUsername() {

@@ -5,6 +5,7 @@ import com.workspace.workSpace.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,56 +15,57 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
 
     public String addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
                               String employeeEmail, String employeePhone, String employeeBirthData,
                               String employeeUsername, String employeePassword, String employeeGender,
-                              String employeePasswordConfirmation){
+                              String employeePasswordConfirmation) {
+        System.out.println(employeeBirthData + ", " + employeePhone);
         if (employeeName.matches("^[A-Z][a-z]{2,20}$") && employeeSurname.matches("^[A-Z][a-z]{2,30}$")
                 && employeeJobCategory.matches("[a-zA-z\\s/]{2,}")
                 && employeeUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
                 && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                 && employeePasswordConfirmation.matches(employeePassword)
-                && employeePhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
+                && (employeePhone.length() == 0 || employeePhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
+                "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
                 && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
-                && employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]|1[0-2])/" +
-                "(0[1-9]|[1-2][0-9]|3[0-1])")){
-            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-            String bCryptEmployeePassword=bCryptPasswordEncoder.encode(employeePassword);
-            Employee newEmployee=new Employee(employeeName,employeeSurname,employeeJobCategory,employeeEmail,
-                    employeePhone,employeeBirthData,employeeUsername,bCryptEmployeePassword,employeeGender);
+                && (employeeBirthData.length() == 0 || employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]|1[0-2])/" +
+                "(0[1-9]|[1-2][0-9]|3[0-1])"))) {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            String bCryptEmployeePassword = bCryptPasswordEncoder.encode(employeePassword);
+            Employee newEmployee = new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
+                    employeePhone, employeeBirthData, employeeUsername, bCryptEmployeePassword, employeeGender);
             employeeRepository.save(newEmployee);
-            return "Congratulations Mr."+employeeSurname+"! "+"Now you are a member of WorkSpace.";
-        }else
+            return "Congratulations Mr." + employeeSurname + "! " + "Now you are a member of WorkSpace.";
+        } else
             return "ERROR 404";
     }
 
-    public String removeEmployee(Long employeeId, String employeePassword){
+    public String removeEmployee(Long employeeId, String employeePassword) {
         try {
-            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-            if (bCryptPasswordEncoder.matches(employeePassword,employeeRepository.getById(employeeId).getEmployeePassword())) {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            if (bCryptPasswordEncoder.matches(employeePassword, employeeRepository.getById(employeeId).getEmployeePassword())) {
                 String name = employeeRepository.getById(employeeId).getEmployeeUsername();
                 employeeRepository.deleteById(employeeId);
                 return name + "'s profile removed.";
-            }else
+            } else
                 return "Invalid password";
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return "ERROR 404";
         }
     }
 
-    public String editEmployee(Long employeeId,String employeeName, String employeeSurname, String employeeJobCategory,
+    public String editEmployee(Long employeeId, String employeeName, String employeeSurname, String employeeJobCategory,
                                String employeeEmail, String employeePhone, String employeeBirthData,
-                               String employeeUsername, String employeePassword,String newEmployeePassword,
-                               String employeeGender){
+                               String employeeUsername, String employeePassword, String newEmployeePassword,
+                               String employeeGender) {
         try {
             Employee employee = employeeRepository.getById(employeeId);
-            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-            if (bCryptPasswordEncoder.matches(employeePassword,employee.getEmployeePassword())) {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            if (bCryptPasswordEncoder.matches(employeePassword, employee.getEmployeePassword())) {
                 if (employeeName != null && employeeName.matches("^[A-Z][a-z]{2,20}$"))
                     employee.setEmployeeName(employeeName);
                 if (employeeSurname != null && employeeSurname.matches("^[A-Z][a-z]{2,30}$"))
@@ -74,7 +76,7 @@ public class EmployeeService {
                     employee.setEmployeeUsername(employeeUsername);
                 if (newEmployeePassword != null && newEmployeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" +
                         "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
-                    String bCryptNewEmployeePassword=bCryptPasswordEncoder.encode(newEmployeePassword);
+                    String bCryptNewEmployeePassword = bCryptPasswordEncoder.encode(newEmployeePassword);
                     employee.setEmployeePassword(bCryptNewEmployeePassword);
                 }
                 if (employeeJobCategory != null && employeeJobCategory.matches("[a-zA-z\\s]{2,}"))
@@ -85,13 +87,13 @@ public class EmployeeService {
                 if (employeeBirthData != null && employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]" +
                         "|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])"))
                     employee.setEmployeeBirthData(employeeBirthData);
-                if (employeeGender!=null)
+                if (employeeGender != null)
                     employee.setEmployeeGender(employeeGender);
                 employeeRepository.save(employee);
                 return "Information successfully updated";
-            }else
+            } else
                 return "Invalid password";
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return "ERROR 404";
         }
     }
