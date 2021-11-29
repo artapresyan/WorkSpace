@@ -8,11 +8,11 @@
 
   <body>
     <h1>Company(if registered show data)</h1>
-    Company name:${companyName}
-    Company Email${companyEmail}
-    Company Phone:${companyPhone}
-    Company office address:${companyOfficeAddress}
-    Company password:${companyPassword}
+    Company name:${companyName}<br>
+    Company Email${companyEmail}<br>
+    Company Phone:${companyPhone}<br>
+    Company office address:${companyOfficeAddress}<br>
+    Company password:${companyPassword}<br>
   </body>
 
   </html>
