@@ -254,19 +254,19 @@
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="/login" class="login">
-                  <div class="field">
-                     <input type="text" placeholder="Username" name="username" required>
+               <form action="employee/home" class="login">
+                  <div class="field btn" style="margin-top:25px;">
+                      <div class="btn-layer">
+                          <a href="/employee/login"><font color="white" size="+3"> &emsp;&emsp;&nbsp;As Employee</font></a>
+                      </div>
                   </div>
-                  <div class="field">
-                     <input type="password" placeholder="Password" name="password" required>
+                  <div class="field btn" style="margin-top:35px;">
+                      <div class="btn-layer">
+                          <a href="/company/login"><font color="white" size="+3"> &emsp;&emsp;&nbsp;As Company</font></a>
+                      </div>
                   </div>
                   <div class="pass-link">
-                     <a href="#">Forgot password?</a>
-                  </div>
-                  <div class="field btn">
-                     <div class="btn-layer"></div>
-                     <input type="submit" value="Login">
+                      <a href="#">Forgot password?</a>
                   </div>
                </form>
                <form action="#" class="signup">
@@ -274,12 +274,12 @@
                   <span class="user-title"> I want to become a member of WorkSpace as </span><br></>
                   <div class="field btn" style="margin-top:20px;">
                       <div class="btn-layer">
-                        <a href="/employee"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Employee</font></a>
+                        <a href="/registration/employee"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Employee</font></a>
                       </div>
                   </div>
                   <div class="field btn" style="margin-top:30px;">
                       <div class="btn-layer">
-                        <a href="/company"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Company</font></a>
+                        <a href="/registration/company"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Company</font></a>
                       </div>
                   </div>
                </form>

@@ -174,7 +174,7 @@
   <div class="container">
     <div class="title">Complete steps to become a part of WorkSpace</div>
     <div class="content">
-      <form action="company/home" method="POST" modelAttribute="Company">
+      <form action="/company/home" method="POST" modelAttribute="Company">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Company Name<font color="red">*</font></span>
@@ -198,11 +198,11 @@
           </div>
           <div class="input-box">
             <span class="details">Password<font color="red">**</font></span>
-            <input type="text" placeholder="Example08&" name="companyPassword" required>
+            <input type="password" placeholder="Example08&" name="companyPassword" required>
           </div>
           <div class="input-box">
             <span class="details">Confirm Password<font color="red">**</font></span>
-            <input type="text" placeholder="Confirm your password" name="companyPasswordConfirmation" required>
+            <input type="password" placeholder="Confirm your password" name="companyPasswordConfirmation" required>
           </div>
           <div class="button">
                     <input type="submit" value="Register"><br><br>

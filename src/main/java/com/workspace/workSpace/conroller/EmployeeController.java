@@ -43,6 +43,11 @@ public class EmployeeController {
         return "employee_view";
     }
 
+    @GetMapping("/login")
+    public String employeeLogin(){
+        return "employee_login_view";
+    }
+
     @PutMapping("/edit")
     public String editEmployee(@RequestParam(required = false) String employeeName,
                                @RequestParam(required = false) String employeeSurname,

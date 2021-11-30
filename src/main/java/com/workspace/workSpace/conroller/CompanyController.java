@@ -21,6 +21,11 @@ public class CompanyController {
         return companyService.getCompanies();
     }
 
+    @GetMapping("/login")
+    public String companyLogin(){
+        return "company_login_view";
+    }
+
     @PostMapping("/home")
     public String addNewCompany(Model model, @RequestParam String companyName, @RequestParam String companyEmail,
                                 @RequestParam String companyPhone, @RequestParam String companyOfficeAddress,
