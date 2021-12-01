@@ -15,6 +15,9 @@ public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public List<Company> getCompanies() {
         return companyRepository.findAll();
     }
@@ -22,9 +25,9 @@ public class CompanyService {
     public void addCompany(String companyName, String companyEmail, String companyPhone,
                            String companyOfficeAddress, String companyUsername,
                            String companyPassword, String companyPasswordConfirmation) {
-        if (companyRepository.getByCompanyUsername(companyUsername).size() == 0 &&
-                companyRepository.getByCompanyName(companyName).size() == 0 &&
-                companyRepository.getByCompanyEmail(companyEmail).size() == 0) {
+        if (companyRepository.getByCompanyUsername(companyUsername)==null &&
+                companyRepository.getByCompanyName(companyName) == null &&
+                companyRepository.getByCompanyEmail(companyEmail) == null) {
             if (companyName.matches(".{2,}") && companyUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
                     && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]{4,}")
                     && companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
@@ -32,7 +35,6 @@ public class CompanyService {
                     "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
                     && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
                     && companyPasswordConfirmation.matches(companyPassword)) {
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 String bCryptCompanyPassword = bCryptPasswordEncoder.encode(companyPassword);
                 Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
                         companyUsername, bCryptCompanyPassword);
@@ -43,7 +45,6 @@ public class CompanyService {
 
     public String removeCompany(Long companyId, String companyPassword) {
         try {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(companyPassword, companyRepository.getById(companyId).getCompanyPassword())) {
                 String name = companyRepository.getById(companyId).getCompanyName();
                 companyRepository.deleteById(companyId);
@@ -60,7 +61,6 @@ public class CompanyService {
                               String companyPassword, String newCompanyPassword) {
         try {
             Company company = companyRepository.getById(companyId);
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(companyPassword, company.getCompanyPassword())) {
                 if (companyName != null && companyName.matches(".{2,}"))
                     company.setCompanyName(companyName);

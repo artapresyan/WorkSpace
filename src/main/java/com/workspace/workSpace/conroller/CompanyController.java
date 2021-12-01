@@ -3,10 +3,14 @@ package com.workspace.workSpace.conroller;
 import com.workspace.workSpace.entity.Company;
 import com.workspace.workSpace.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,9 +25,31 @@ public class CompanyController {
         return companyService.getCompanies();
     }
 
-    @GetMapping("/login")
-    public String companyLogin(){
-        return "company_login_view";
+    @GetMapping("/login-error")
+    public String login(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String errorMessage = null;
+        if (session != null) {
+            AuthenticationException ex = (AuthenticationException) session
+                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            if (ex != null) {
+                errorMessage = ex.getMessage();
+            }
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        return "login";
+    }
+
+    @GetMapping("/home")
+    public String getHomepage(Model model){
+        model.getAttribute("companyName");
+        model.getAttribute("companyEmail");
+        model.getAttribute("companyPhone");
+        model.getAttribute("companyUsername");
+        model.getAttribute("companyPassword");
+        model.getAttribute("companyOfficeAddress");
+        model.getAttribute("companyPasswordConfirmation");
+        return "company_view";
     }
 
     @PostMapping("/home")

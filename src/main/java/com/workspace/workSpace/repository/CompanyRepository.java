@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company,Long> {
-    List<Company> getByCompanyEmail(String companyEmail);
-    List<Company> getByCompanyUsername(String companyUsername);
-    List<Company> getByCompanyName(String companyName);
-    List<Company> getByCompanyEmailAndCompanyPassword(String companyEmail,String companyPassword);
-    List<Company> getByCompanyUsernameAndCompanyPassword(String companyUsername,String companyPassword);
+    Company getByCompanyEmail(String companyEmail);
+    Company getByCompanyUsername(String companyUsername);
+    Company getByCompanyName(String companyName);
+    Company getByCompanyEmailAndCompanyPassword(String companyEmail,String companyPassword);
+    Company getByCompanyUsernameAndCompanyPassword(String companyUsername,String companyPassword);
 }
