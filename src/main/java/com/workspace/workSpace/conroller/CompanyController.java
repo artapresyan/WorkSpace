@@ -26,7 +26,7 @@ public class CompanyController {
     }
 
     @GetMapping("/login-error")
-    public String login(HttpServletRequest request, Model model) {
+    public String companyLoginErrorCase(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         String errorMessage = null;
         if (session != null) {
@@ -41,7 +41,7 @@ public class CompanyController {
     }
 
     @GetMapping("/home")
-    public String getHomepage(Model model){
+    public String getCompanyHomepage(Model model) {
         model.getAttribute("companyName");
         model.getAttribute("companyEmail");
         model.getAttribute("companyPhone");
@@ -53,19 +53,14 @@ public class CompanyController {
     }
 
     @PostMapping("/home")
-    public String addNewCompany(Model model, @RequestParam String companyName, @RequestParam String companyEmail,
-                                @RequestParam String companyPhone, @RequestParam String companyOfficeAddress,
-                                @RequestParam String companyUsername, @RequestParam String companyPassword,
-                                @RequestParam String companyPasswordConfirmation) {
+    public String addNewCompany(Model model, @RequestParam() String companyName, @RequestParam() String companyEmail,
+                                @RequestParam() String companyPhone, @RequestParam() String companyOfficeAddress,
+                                @RequestParam() String companyUsername, @RequestParam() String companyPassword,
+                                @RequestParam() String companyPasswordConfirmation) {
         companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
                 companyPassword, companyPasswordConfirmation);
-        model.addAttribute("companyName", companyName);
-        model.addAttribute("companyEmail", companyEmail);
-        model.addAttribute("companyPhone", companyPhone);
-        model.addAttribute("companyUsername", companyUsername);
-        model.addAttribute("companyPassword", companyPassword);
-        model.addAttribute("companyOfficeAddress", companyOfficeAddress);
-        model.addAttribute("companyPasswordConfirmation", companyPasswordConfirmation);
+        model.addAttribute(new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
+                companyUsername, companyPassword));
         return "company_view";
     }
 

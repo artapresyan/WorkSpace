@@ -3,10 +3,14 @@ package com.workspace.workSpace.conroller;
 import com.workspace.workSpace.entity.Employee;
 import com.workspace.workSpace.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -21,6 +25,21 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
+    @GetMapping("/login-error")
+    public String employeeLoginErrorCase(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String errorMessage = null;
+        if (session != null) {
+            AuthenticationException ex = (AuthenticationException) session
+                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            if (ex != null) {
+                errorMessage = ex.getMessage();
+            }
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        return "login";
+    }
+
     @PostMapping("/home")
     public String addEmployee(Model model, @RequestParam() String employeeName, @RequestParam() String employeeSurname,
                               @RequestParam() String employeeJobCategory, @RequestParam() String employeeEmail,
@@ -30,22 +49,9 @@ public class EmployeeController {
                               @RequestParam() String employeeGender, @RequestParam() String employeePasswordConfirmation) {
         employeeService.addEmployee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                 employeePhone, employeeBirthData, employeeUsername, employeePassword, employeeGender, employeePasswordConfirmation);
-        model.addAttribute("employeeName", employeeName);
-        model.addAttribute("employeeSurname", employeeSurname);
-        model.addAttribute("employeeJobCategory", employeeJobCategory);
-        model.addAttribute("employeeEmail", employeeEmail);
-        model.addAttribute("employeePhone", employeePhone);
-        model.addAttribute("employeeBirthData", employeeBirthData);
-        model.addAttribute("employeeUsername", employeeUsername);
-        model.addAttribute("employeePassword", employeePassword);
-        model.addAttribute("employeeGender", employeeGender);
-        model.addAttribute("employeePasswordConfirmation", employeePasswordConfirmation);
+        model.addAttribute(new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail, employeePhone,
+                employeeBirthData, employeeUsername, employeePassword, employeeGender));
         return "employee_view";
-    }
-
-    @GetMapping("/login")
-    public String employeeLogin(){
-        return "employee_login_view";
     }
 
     @PutMapping("/edit")

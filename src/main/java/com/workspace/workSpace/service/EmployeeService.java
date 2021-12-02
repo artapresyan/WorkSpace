@@ -15,6 +15,10 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
@@ -23,8 +27,8 @@ public class EmployeeService {
                             String employeeEmail, String employeePhone, String employeeBirthData,
                             String employeeUsername, String employeePassword, String employeeGender,
                             String employeePasswordConfirmation) {
-        if (employeeRepository.getByEmployeeEmail(employeeEmail).size() == 0 &&
-                employeeRepository.getByEmployeeUsername(employeeUsername).size() == 0) {
+        if (employeeRepository.getByEmployeeEmail(employeeEmail) == null &&
+                employeeRepository.getByEmployeeUsername(employeeUsername) == null) {
             if (employeeName.matches("^[A-Z][a-z]{2,20}$") && employeeSurname.matches("^[A-Z][a-z]{2,30}$")
                     && employeeJobCategory.matches("[a-zA-z\\s/]{2,}")
                     && employeeUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
@@ -35,7 +39,6 @@ public class EmployeeService {
                     && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
                     && (employeeBirthData.length() == 0 || employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]|1[0-2])/" +
                     "(0[1-9]|[1-2][0-9]|3[0-1])"))) {
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 String bCryptEmployeePassword = bCryptPasswordEncoder.encode(employeePassword);
                 Employee newEmployee = new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                         employeePhone, employeeBirthData, employeeUsername, bCryptEmployeePassword, employeeGender);
@@ -46,7 +49,6 @@ public class EmployeeService {
 
     public String removeEmployee(Long employeeId, String employeePassword) {
         try {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(employeePassword, employeeRepository.getById(employeeId).getEmployeePassword())) {
                 String name = employeeRepository.getById(employeeId).getEmployeeUsername();
                 employeeRepository.deleteById(employeeId);
@@ -64,17 +66,16 @@ public class EmployeeService {
                                String employeeGender) {
         try {
             Employee employee = employeeRepository.getById(employeeId);
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(employeePassword, employee.getEmployeePassword())) {
                 if (employeeName != null && employeeName.matches("^[A-Z][a-z]{2,20}$"))
                     employee.setEmployeeName(employeeName);
                 if (employeeSurname != null && employeeSurname.matches("^[A-Z][a-z]{2,30}$"))
                     employee.setEmployeeSurname(employeeSurname);
                 if (employeeEmail != null && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
-                    && employeeRepository.getByEmployeeEmail(employeeEmail).size()==0)
+                        && employeeRepository.getByEmployeeEmail(employeeEmail) == null)
                     employee.setEmployeeEmail(employeeEmail);
                 if (employeeUsername != null && employeeUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
-                        && employeeRepository.getByEmployeeUsername(employeeUsername).size()==0)
+                        && employeeRepository.getByEmployeeUsername(employeeUsername) == null)
                     employee.setEmployeeUsername(employeeUsername);
                 if (newEmployeePassword != null && newEmployeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)" +
                         "(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")) {
