@@ -174,7 +174,7 @@
   <div class="container">
     <div class="title">Complete steps to become a part of WorkSpace</div>
     <div class="content">
-      <form action="/company/home" method="POST" modelAttribute="Company">
+      <form action="/company/registration" method="POST" modelAttribute="Company">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Company Name<font color="red">*</font></span>

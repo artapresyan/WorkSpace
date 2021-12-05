@@ -22,7 +22,7 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public void addCompany(String companyName, String companyEmail, String companyPhone,
+    public Company addCompany(String companyName, String companyEmail, String companyPhone,
                            String companyOfficeAddress, String companyUsername,
                            String companyPassword, String companyPasswordConfirmation) {
         if (companyRepository.getByCompanyUsername(companyUsername)==null &&
@@ -31,16 +31,17 @@ public class CompanyService {
             if (companyName.matches(".{2,}") && companyUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
                     && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]{4,}")
                     && companyPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
-                    && companyPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}")
+                    && companyPhone.matches("374([9]{2}|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[7]{2}|[60]|[5]{2}|[4]{2}|[43]|[41]|[3]{2}|[12]|[1]{2}|[10]){2}[0-9]{6}")
                     && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
                     && companyPasswordConfirmation.matches(companyPassword)) {
                 String bCryptCompanyPassword = bCryptPasswordEncoder.encode(companyPassword);
                 Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
                         companyUsername, bCryptCompanyPassword);
-                companyRepository.save(newCompany);
+               return companyRepository.save(newCompany);
             }
         }
+        return null;
     }
 
     public String removeCompany(Long companyId, String companyPassword) {
@@ -64,8 +65,8 @@ public class CompanyService {
             if (bCryptPasswordEncoder.matches(companyPassword, company.getCompanyPassword())) {
                 if (companyName != null && companyName.matches(".{2,}"))
                     company.setCompanyName(companyName);
-                if (companyPhone != null && companyPhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                        "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
+                if (companyPhone != null && companyPhone.matches("374([9]{2}|[98]|[97]|[96]|[95]|[94]|[93]" +
+                        "|[91]|[7]{2}|[60]|[5]{2}|[4]{2}|[43]|[41]|[3]{2}|[12]|[1]{2}|[10]){2}[0-9]{6}"))
                     company.setCompanyPhone(companyPhone);
                 if (companyOfficeAddress != null && companyOfficeAddress.matches("[\\w,/\\s&&[^_]]{4,}"))
                     company.setCompanyOfficeAddress(companyOfficeAddress);

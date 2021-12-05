@@ -34,8 +34,8 @@ public class EmployeeService {
                     && employeeUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
                     && employeePassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$")
                     && employeePasswordConfirmation.matches(employeePassword)
-                    && (employeePhone.length() == 0 || employeePhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                    "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
+                    && (employeePhone.length() == 0 || employeePhone.matches("374([9]{2}|[98]|[97]|[96]|[95]|[94]|[93]" +
+                    "|[91]|[7]{2}|[60]|[5]{2}|[4]{2}|[43]|[41]|[3]{2}|[12]|[1]{2}|[10]){2}[0-9]{6}"))
                     && employeeEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
                     && (employeeBirthData.length() == 0 || employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]|1[0-2])/" +
                     "(0[1-9]|[1-2][0-9]|3[0-1])"))) {
@@ -84,8 +84,8 @@ public class EmployeeService {
                 }
                 if (employeeJobCategory != null && employeeJobCategory.matches("[a-zA-z\\s]{2,}"))
                     employee.setEmployeeJobCategory(employeeJobCategory);
-                if (employeePhone != null && employeePhone.matches("374([99]|[98]|[97]|[96]|[95]|[94]|[93]" +
-                        "|[91]|[77]|[60]|[55]|[44]|[43]|[41]|[33]|[12]|[11]|[10]){2}[0-9]{6}"))
+                if (employeePhone != null && employeePhone.matches("374([9]{2}|[98]|[97]|[96]|[95]|[94]|[93]" +
+                        "|[91]|[7]{2}|[60]|[5]{2}|[4]{2}|[43]|[41]|[3]{2}|[12]|[1]{2}|[10]){2}[0-9]{6}"))
                     employee.setEmployeePhone(employeePhone);
                 if (employeeBirthData != null && employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]" +
                         "|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])"))

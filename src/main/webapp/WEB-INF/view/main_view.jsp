@@ -274,12 +274,12 @@
                   <span class="user-title"> I want to become a member of WorkSpace as </span><br></>
                   <div class="field btn" style="margin-top:20px;">
                       <div class="btn-layer">
-                        <a href="/registration/employee"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Employee</font></a>
+                        <a href="/employee/registration"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Employee</font></a>
                       </div>
                   </div>
                   <div class="field btn" style="margin-top:30px;">
                       <div class="btn-layer">
-                        <a href="/registration/company"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Company</font></a>
+                        <a href="/company/registration"><font color="white" size="+3"> &emsp;&emsp;&nbsp; Company</font></a>
                       </div>
                   </div>
                </form>

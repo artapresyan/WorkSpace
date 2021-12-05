@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
@@ -37,7 +38,7 @@ public class CompanyController {
             }
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "login";
+        return "redirect:/employee/login";
     }
 
     @GetMapping("/home")
@@ -52,15 +53,14 @@ public class CompanyController {
         return "company_view";
     }
 
-    @PostMapping("/home")
-    public String addNewCompany(Model model, @RequestParam() String companyName, @RequestParam() String companyEmail,
+    @PostMapping("/registration")
+    public String addNewCompany(@RequestParam() String companyName, @RequestParam() String companyEmail,
                                 @RequestParam() String companyPhone, @RequestParam() String companyOfficeAddress,
                                 @RequestParam() String companyUsername, @RequestParam() String companyPassword,
                                 @RequestParam() String companyPasswordConfirmation) {
-        companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
-                companyPassword, companyPasswordConfirmation);
-        model.addAttribute(new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
-                companyUsername, companyPassword));
+        ModelMap model=new ModelMap();
+        model.addAttribute("company",companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
+                companyPassword, companyPasswordConfirmation));
         return "company_view";
     }
 

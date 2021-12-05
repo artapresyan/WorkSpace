@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
@@ -25,6 +26,13 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
+    @GetMapping("/home")
+    public String getCompanyHomepage(@ModelAttribute("Employee") Employee employee, Model model) {
+        model.getAttribute(employee.getEmployeeName());
+        model.getAttribute(employee.getEmployeeUsername());
+        return "employee_view";
+    }
+
     @GetMapping("/login-error")
     public String employeeLoginErrorCase(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
@@ -37,11 +45,11 @@ public class EmployeeController {
             }
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "login";
+        return "redirect:/employee/login";
     }
 
-    @PostMapping("/home")
-    public String addEmployee(Model model, @RequestParam() String employeeName, @RequestParam() String employeeSurname,
+    @PostMapping("/registration")
+    public String addNewEmployee(Model model, @RequestParam() String employeeName, @RequestParam() String employeeSurname,
                               @RequestParam() String employeeJobCategory, @RequestParam() String employeeEmail,
                               @RequestParam(required = false) String employeePhone,
                               @RequestParam(required = false) String employeeBirthData,
