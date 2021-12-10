@@ -58,10 +58,9 @@ public class CompanyController {
                                 @RequestParam() String companyPhone, @RequestParam() String companyOfficeAddress,
                                 @RequestParam() String companyUsername, @RequestParam() String companyPassword,
                                 @RequestParam() String companyPasswordConfirmation) {
-        ModelMap model=new ModelMap();
-        model.addAttribute("company",companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
-                companyPassword, companyPasswordConfirmation));
-        return "company_view";
+        companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
+                companyPassword, companyPasswordConfirmation);
+        return "redirect:/company/login";
     }
 
     @PutMapping("/edit")

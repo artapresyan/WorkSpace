@@ -59,7 +59,7 @@ public class EmployeeController {
                 employeePhone, employeeBirthData, employeeUsername, employeePassword, employeeGender, employeePasswordConfirmation);
         model.addAttribute(new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail, employeePhone,
                 employeeBirthData, employeeUsername, employeePassword, employeeGender));
-        return "employee_view";
+        return "redirect:/employee/login";
     }
 
     @PutMapping("/edit")
