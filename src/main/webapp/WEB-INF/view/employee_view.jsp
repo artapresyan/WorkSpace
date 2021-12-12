@@ -8,14 +8,14 @@
 
   <body>
     <h1>Employee(if registered show data)</h1>
-    Name:${employeeName}<br>
-    Surname:${employeeSurname}<br>
-    JobCategory:${employeeJobCategory}<br>
-    Email:${employeeEmail}<br>
-    Phone:${employeePhone}<br>
-    BirthDay:${employeeBirthData}<br>
-    Gender:${employeeGender}<br>
-    Username:${employeeUsername}<br>
+    Name:"${employee.employeeName}"<br>
+    Surname:"${employee.employeeSurname}"<br>
+    JobCategory:"${employee.employeeJobCategory}"<br>
+    Email:"${employee.employeeEmail}"<br>
+    Phone:"${employee.employeePhone}"<br>
+    BirthDay:"${employee.employeeBirthDate}"<br>
+    Gender:"${employee.employeeGender}"<br>
+    Username:"${employee.employeeUsername}"<br>
 
   </body>
 

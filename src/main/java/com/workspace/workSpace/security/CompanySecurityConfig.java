@@ -38,7 +38,6 @@ public class CompanySecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/company/home")
                 .failureUrl("/company/login?error=true")
                 .permitAll();
-
     }
 
     @Autowired

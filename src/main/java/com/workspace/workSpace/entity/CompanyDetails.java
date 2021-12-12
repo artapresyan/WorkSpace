@@ -2,7 +2,6 @@ package com.workspace.workSpace.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 
 public class CompanyDetails implements UserDetails {
@@ -11,6 +10,10 @@ public class CompanyDetails implements UserDetails {
 
     public CompanyDetails(Company company) {
         this.company = company;
+    }
+
+    public Company getCompany(){
+        return company;
     }
 
     @Override

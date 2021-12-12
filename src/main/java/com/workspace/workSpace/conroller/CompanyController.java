@@ -1,18 +1,19 @@
 package com.workspace.workSpace.conroller;
 
 import com.workspace.workSpace.entity.Company;
+import com.workspace.workSpace.entity.CompanyDetails;
 import com.workspace.workSpace.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/company")
@@ -38,19 +39,20 @@ public class CompanyController {
             }
         }
         model.addAttribute("errorMessage", errorMessage);
-        return "redirect:/employee/login";
+
+        return "redirect:/company/login";
     }
 
     @GetMapping("/home")
-    public String getCompanyHomepage(Model model) {
-        model.getAttribute("companyName");
-        model.getAttribute("companyEmail");
-        model.getAttribute("companyPhone");
-        model.getAttribute("companyUsername");
-        model.getAttribute("companyPassword");
-        model.getAttribute("companyOfficeAddress");
-        model.getAttribute("companyPasswordConfirmation");
-        return "company_view";
+    public String getCompanyHomepage(Authentication authentication, Model model) {
+        try {
+            CompanyDetails companyDetails = (CompanyDetails) authentication.getPrincipal();
+            Company company = companyDetails.getCompany();
+            model.addAttribute("company", company);
+            return "company_view";
+        } catch (NoSuchElementException e) {
+            return "redirect:/company/login";
+        }
     }
 
     @PostMapping("/registration")

@@ -174,35 +174,35 @@
   <div class="container">
     <div class="title">Complete steps to become a part of WorkSpace</div>
     <div class="content">
-      <form action="/company/registration" method="POST" modelAttribute="Company">
+      <form action="/company/registration" method="POST">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Company Name<font color="red">*</font></span>
-            <input type="text" placeholder="WorkSpace" name="companyName" required>
+            <input type="text" placeholder="WorkSpace" name="compName" required>
           </div>
           <div class="input-box">
             <span class="details">Email<font color="red">*</font></span>
-            <input type="text" placeholder="example@company.com" name="companyEmail" required>
+            <input type="text" placeholder="example@company.com" name="compEmail" required>
           </div>
           <div class="input-box">
             <span class="details">Phone<font color="red">*</font></span>
-            <input type="text" placeholder="37410548607" name="companyPhone" required>
+            <input type="text" placeholder="37410548607" name="compPhone" required>
           </div>
           <div class="input-box">
             <span class="details">Office Address<font color="red">*</font></span>
-            <input type="text" placeholder="Komitas Avenue 50/9" name="companyOfficeAddress" required>
+            <input type="text" placeholder="Komitas Avenue 50/9" name="compOfficeAddress" required>
           </div>
           <div class="input-box">
             <span class="details">Username<font color="red">*</font></span>
-            <input type="text" placeholder="username" name="companyUsername" required>
+            <input type="text" placeholder="username" name="compUsername" required>
           </div>
           <div class="input-box">
             <span class="details">Password<font color="red">**</font></span>
-            <input type="password" placeholder="Example08&" name="companyPassword" required>
+            <input type="password" placeholder="Example08&" name="compPassword" required>
           </div>
           <div class="input-box">
             <span class="details">Confirm Password<font color="red">**</font></span>
-            <input type="password" placeholder="Confirm your password" name="companyPasswordConfirmation" required>
+            <input type="password" placeholder="Confirm your password" name="compPasswordConfirmation" required>
           </div>
           <div class="button">
                     <input type="submit" value="Register"><br><br>

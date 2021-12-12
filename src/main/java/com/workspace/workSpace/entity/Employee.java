@@ -29,7 +29,7 @@ public class Employee {
     private String employeePhone;
 
     @Column(name = "birth_date")
-    private LocalDate employeeBirthData;
+    private LocalDate employeeBirthDate;
 
     @Column(name = "username", nullable = false)
     private String employeeUsername;
@@ -44,13 +44,13 @@ public class Employee {
     }
 
     public Employee(String employeeName, String employeeSurname, String employeeJobCategory,
-                    String employeeEmail, String employeePhone, String employeeBirthData,
+                    String employeeEmail, String employeePhone, String employeeBirthDate,
                     String employeeUsername, String employeePassword, String employeeGender) {
-        if (employeeBirthData != null && employeeBirthData.length() != 0) {
+        if (employeeBirthDate != null && employeeBirthDate.length() != 0) {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
-            this.employeeBirthData = LocalDate.parse(employeeBirthData, dateFormat);
+            this.employeeBirthDate = LocalDate.parse(employeeBirthDate, dateFormat);
         } else {
-            this.employeeBirthData = null;
+            this.employeeBirthDate = null;
         }
         this.employeeName = employeeName;
         this.employeeSurname = employeeSurname;
@@ -105,16 +105,16 @@ public class Employee {
             this.employeePhone = employeePhone;
     }
 
-    public LocalDate getEmployeeBirthData() {
-        return employeeBirthData;
+    public LocalDate getEmployeeBirthDate() {
+        return employeeBirthDate;
     }
 
-    public void setEmployeeBirthData(String employeeBirthData) {
-        if (employeeBirthData.length() == 0) {
-            this.employeeBirthData = null;
+    public void setEmployeeBirthDate(String employeeBirthDate) {
+        if (employeeBirthDate.length() == 0) {
+            this.employeeBirthDate = null;
         } else {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/M/d");
-            this.employeeBirthData = LocalDate.parse(employeeBirthData, dateFormat);
+            this.employeeBirthDate = LocalDate.parse(employeeBirthDate, dateFormat);
         }
     }
 

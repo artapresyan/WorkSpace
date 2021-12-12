@@ -1,6 +1,5 @@
 package com.workspace.workSpace.security;
 
-
 import com.workspace.workSpace.service.EmployeeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,6 @@ public class EmployeeSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

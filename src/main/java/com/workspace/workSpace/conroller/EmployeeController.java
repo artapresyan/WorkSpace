@@ -1,18 +1,19 @@
 package com.workspace.workSpace.conroller;
 
 import com.workspace.workSpace.entity.Employee;
+import com.workspace.workSpace.entity.EmployeeDetails;
 import com.workspace.workSpace.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/employee")
@@ -27,10 +28,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/home")
-    public String getCompanyHomepage(@ModelAttribute("Employee") Employee employee, Model model) {
-        model.getAttribute(employee.getEmployeeName());
-        model.getAttribute(employee.getEmployeeUsername());
-        return "employee_view";
+    public String getCompanyHomepage(Authentication authentication, Model model) {
+        try{
+            EmployeeDetails employeeDetails=(EmployeeDetails) authentication.getPrincipal();
+            Employee employee=employeeDetails.getEmployee();
+            model.addAttribute("employee",employee);
+            return "employee_view";
+        }catch (NoSuchElementException e){
+            return "redirect:/employee/login";
+        }
     }
 
     @GetMapping("/login-error")
@@ -49,7 +55,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/registration")
-    public String addNewEmployee(Model model, @RequestParam() String employeeName, @RequestParam() String employeeSurname,
+    public String addNewEmployee(@RequestParam() String employeeName, @RequestParam() String employeeSurname,
                               @RequestParam() String employeeJobCategory, @RequestParam() String employeeEmail,
                               @RequestParam(required = false) String employeePhone,
                               @RequestParam(required = false) String employeeBirthData,
@@ -57,8 +63,6 @@ public class EmployeeController {
                               @RequestParam() String employeeGender, @RequestParam() String employeePasswordConfirmation) {
         employeeService.addEmployee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                 employeePhone, employeeBirthData, employeeUsername, employeePassword, employeeGender, employeePasswordConfirmation);
-        model.addAttribute(new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail, employeePhone,
-                employeeBirthData, employeeUsername, employeePassword, employeeGender));
         return "redirect:/employee/login";
     }
 

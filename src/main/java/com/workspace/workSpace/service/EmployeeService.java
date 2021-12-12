@@ -5,7 +5,6 @@ import com.workspace.workSpace.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,7 +22,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public void addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
+    public Employee addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
                             String employeeEmail, String employeePhone, String employeeBirthData,
                             String employeeUsername, String employeePassword, String employeeGender,
                             String employeePasswordConfirmation) {
@@ -42,9 +41,10 @@ public class EmployeeService {
                 String bCryptEmployeePassword = bCryptPasswordEncoder.encode(employeePassword);
                 Employee newEmployee = new Employee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                         employeePhone, employeeBirthData, employeeUsername, bCryptEmployeePassword, employeeGender);
-                employeeRepository.save(newEmployee);
+                return employeeRepository.save(newEmployee);
             }
         }
+        return null;
     }
 
     public String removeEmployee(Long employeeId, String employeePassword) {
@@ -89,7 +89,7 @@ public class EmployeeService {
                     employee.setEmployeePhone(employeePhone);
                 if (employeeBirthData != null && employeeBirthData.matches("(19[2-9][0-9]|20[0-1][0-9]|202[0-1])/(0[1-9]" +
                         "|1[0-2])/(0[1-9]|[1-2][0-9]|3[0-1])"))
-                    employee.setEmployeeBirthData(employeeBirthData);
+                    employee.setEmployeeBirthDate(employeeBirthData);
                 if (employeeGender != null)
                     employee.setEmployeeGender(employeeGender);
                 employeeRepository.save(employee);
@@ -99,5 +99,9 @@ public class EmployeeService {
         } catch (NoSuchElementException e) {
             return "ERROR 404";
         }
+    }
+
+    public Employee getEmployeeById(Long employeeId) {
+        return employeeRepository.getById(employeeId);
     }
 }

@@ -5,7 +5,6 @@ import com.workspace.workSpace.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,9 +22,9 @@ public class CompanyService {
     }
 
     public Company addCompany(String companyName, String companyEmail, String companyPhone,
-                           String companyOfficeAddress, String companyUsername,
-                           String companyPassword, String companyPasswordConfirmation) {
-        if (companyRepository.getByCompanyUsername(companyUsername)==null &&
+                              String companyOfficeAddress, String companyUsername,
+                              String companyPassword, String companyPasswordConfirmation) {
+        if (companyRepository.getByCompanyUsername(companyUsername) == null &&
                 companyRepository.getByCompanyName(companyName) == null &&
                 companyRepository.getByCompanyEmail(companyEmail) == null) {
             if (companyName.matches(".{2,}") && companyUsername.matches("^(?=.{3,}[a-z])[a-z0-9]{4,30}$")
@@ -38,7 +37,7 @@ public class CompanyService {
                 String bCryptCompanyPassword = bCryptPasswordEncoder.encode(companyPassword);
                 Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
                         companyUsername, bCryptCompanyPassword);
-               return companyRepository.save(newCompany);
+                return companyRepository.save(newCompany);
             }
         }
         return null;
@@ -86,6 +85,10 @@ public class CompanyService {
         } catch (NoSuchElementException e) {
             return "ERROR 404";
         }
+    }
+
+    public Company getCompanyById(Long companyId) {
+        return companyRepository.getById(companyId);
     }
 
 }

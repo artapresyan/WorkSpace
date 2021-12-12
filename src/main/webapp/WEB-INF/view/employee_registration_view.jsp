@@ -152,31 +152,31 @@
   <div class="container">
     <div class="title">Complete steps to become a part of WorkSpace</div>
     <div class="content">
-      <form action="/employee/registration" method="POST" modelAttribute="Employee">
+      <form action="/employee/registration" method="POST">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Name<font color="red">*</font></span>
-            <input type="text" placeholder="Tigran" name="employeeName" required>
+            <input type="text" placeholder="Tigran" name="empName" required>
           </div>
           <div class="input-box">
             <span class="details">Surname<font color="red">*</font></span>
-            <input type="text" placeholder="Avian" name="employeeSurname" required>
+            <input type="text" placeholder="Avian" name="empSurname" required>
           </div>
           <div class="input-box">
             <span class="details">Birthday date</span>
-            <input type="text" placeholder="yyyy/mm/dd" name="employeeBirthData">
+            <input type="text" placeholder="yyyy/mm/dd" name="empBirthData">
           </div>
           <div class="input-box">
             <span class="details">Email<font color="red">*</font></span>
-            <input type="text" placeholder="example@gmail.com" name="employeeEmail" required>
+            <input type="text" placeholder="example@gmail.com" name="empEmail" required>
           </div>
           <div class="input-box">
             <span class="details">Phone Number</span>
-            <input type="text" placeholder="37492548607" name="employeePhone">
+            <input type="text" placeholder="37492548607" name="empPhone">
           </div>
           <div class="input-box">
             <span class="details">Preferred Job Category<font color="red">*</font></span>
-            <input list="brow" placeholder="Choose category..." name="employeeJobCategory" required>
+            <input list="brow" placeholder="Choose category..." name="empJobCategory" required>
             <datalist id="brow">
               <option value="Agriculture/Food/Natural Resources">
               <option value="Architecture/Construction">
@@ -202,11 +202,11 @@
           </div>
           <div class="input-box">
             <span class="details">Username<font color="red">*</font></span>
-            <input type="text" placeholder="username" name="employeeUsername" required>
+            <input type="text" placeholder="username" name="empUsername" required>
           </div>
            <div class="input-box">
                       <span class="details">Gender</span>
-                      <input list="gender" placeholder="Male/Female" name="employeeGender" required>
+                      <input list="gender" placeholder="Male/Female" name="empGender" required>
                       <datalist id="gender">
                         <option value="Male">
                         <option value="Female">
@@ -214,11 +214,11 @@
                     </div>
           <div class="input-box">
             <span class="details">Password<font color="red">**</font></span>
-            <input type="password" placeholder="Example08&" name="employeePassword" required>
+            <input type="password" placeholder="Example08&" name="empPassword" required>
           </div>
           <div class="input-box">
             <span class="details">Confirm Password<font color="red">**</font></span>
-            <input type="password" placeholder="Confirm your password" name="employeePasswordConfirmation" required>
+            <input type="password" placeholder="Confirm your password" name="empPasswordConfirmation" required>
           </div>
         </div>
         <div class="button">
