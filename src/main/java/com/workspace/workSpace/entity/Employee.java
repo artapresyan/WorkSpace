@@ -3,6 +3,7 @@ package com.workspace.workSpace.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name = "employees")
@@ -40,6 +41,18 @@ public class Employee {
     @Column(name = "Gender")
     private String employeeGender;
 
+    @Column(name = "account_non_locked",nullable = false)
+    private boolean employeeNonLocked;
+
+    @Column(name = "failed_attempt",nullable = false)
+    private int employeeFailedAttempt;
+
+    @Column(name = "lock_time")
+    private Date employeeLockTime;
+
+    @Column(name = "is_enabled",nullable = false)
+    private boolean isEmployeeEnabled;
+
     public Employee() {
     }
 
@@ -60,6 +73,10 @@ public class Employee {
         this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
         this.employeeGender = employeeGender;
+        this.employeeNonLocked=true;
+        this.employeeFailedAttempt=0;
+        this.employeeLockTime=null;
+        this.isEmployeeEnabled=true;
     }
 
     public Long getEmployeeId() {
@@ -150,6 +167,37 @@ public class Employee {
         this.employeeGender = employeeGender;
     }
 
+    public boolean isEmployeeNonLocked() {
+        return employeeNonLocked;
+    }
+
+    public void setEmployeeNonLocked(boolean employeeNonLocked) {
+        this.employeeNonLocked = employeeNonLocked;
+    }
+
+    public int getEmployeeFailedAttempt() {
+        return employeeFailedAttempt;
+    }
+
+    public void setEmployeeFailedAttempt(int employeeFailedAttempt) {
+        this.employeeFailedAttempt = employeeFailedAttempt;
+    }
+
+    public Date getEmployeeLockTime() {
+        return employeeLockTime;
+    }
+
+    public void setEmployeeLockTime(Date employeeLockTime) {
+        this.employeeLockTime = employeeLockTime;
+    }
+
+    public boolean isEmployeeEnabled() {
+        return isEmployeeEnabled;
+    }
+
+    public void setEmployeeEnabled(boolean employeeEnabled) {
+        isEmployeeEnabled = employeeEnabled;
+    }
 }
 
 

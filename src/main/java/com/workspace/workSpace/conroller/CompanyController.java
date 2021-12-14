@@ -9,6 +9,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,10 +57,10 @@ public class CompanyController {
     }
 
     @PostMapping("/registration")
-    public String addNewCompany(@RequestParam() String companyName, @RequestParam() String companyEmail,
-                                @RequestParam() String companyPhone, @RequestParam() String companyOfficeAddress,
-                                @RequestParam() String companyUsername, @RequestParam() String companyPassword,
-                                @RequestParam() String companyPasswordConfirmation) {
+    public String addNewCompany(@RequestParam(value = "compName") String companyName, @RequestParam(value = "compEmail") String companyEmail,
+                                @RequestParam(value = "compPhone") String companyPhone, @RequestParam(value = "compOfficeAddress") String companyOfficeAddress,
+                                @RequestParam(value = "compUsername") String companyUsername, @RequestParam(value = "compPassword") String companyPassword,
+                                @RequestParam(value = "compPasswordConfirmation") String companyPasswordConfirmation) {
         companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
                 companyPassword, companyPasswordConfirmation);
         return "redirect:/company/login";

@@ -164,7 +164,7 @@
           </div>
           <div class="input-box">
             <span class="details">Birthday date</span>
-            <input type="text" placeholder="yyyy/mm/dd" name="empBirthData">
+            <input type="text" placeholder="yyyy/mm/dd" name="empBirthDate">
           </div>
           <div class="input-box">
             <span class="details">Email<font color="red">*</font></span>
@@ -205,7 +205,7 @@
             <input type="text" placeholder="username" name="empUsername" required>
           </div>
            <div class="input-box">
-                      <span class="details">Gender</span>
+                      <span class="details">Gender<font color="red">*</font></span>
                       <input list="gender" placeholder="Male/Female" name="empGender" required>
                       <datalist id="gender">
                         <option value="Male">

@@ -9,6 +9,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.naming.AuthenticationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,18 +28,6 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
-    @GetMapping("/home")
-    public String getCompanyHomepage(Authentication authentication, Model model) {
-        try{
-            EmployeeDetails employeeDetails=(EmployeeDetails) authentication.getPrincipal();
-            Employee employee=employeeDetails.getEmployee();
-            model.addAttribute("employee",employee);
-            return "employee_view";
-        }catch (NoSuchElementException e){
-            return "redirect:/employee/login";
-        }
-    }
-
     @GetMapping("/login-error")
     public String employeeLoginErrorCase(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
@@ -54,13 +43,27 @@ public class EmployeeController {
         return "redirect:/employee/login";
     }
 
+    @GetMapping("/home")
+    public String getEmployeeHomepage(Authentication authentication, Model model) {
+        try {
+            EmployeeDetails employeeDetails = (EmployeeDetails) authentication.getPrincipal();
+            Employee employee = employeeDetails.getEmployee();
+            model.addAttribute("employee", employee);
+            return "employee_view";
+        } catch (NoSuchElementException e) {
+            return "redirect:/employee/login";
+        }
+    }
+
     @PostMapping("/registration")
-    public String addNewEmployee(@RequestParam() String employeeName, @RequestParam() String employeeSurname,
-                              @RequestParam() String employeeJobCategory, @RequestParam() String employeeEmail,
-                              @RequestParam(required = false) String employeePhone,
-                              @RequestParam(required = false) String employeeBirthData,
-                              @RequestParam() String employeeUsername, @RequestParam() String employeePassword,
-                              @RequestParam() String employeeGender, @RequestParam() String employeePasswordConfirmation) {
+    public String addNewEmployee(@RequestParam("empName") String employeeName, @RequestParam("empSurname") String employeeSurname,
+                                 @RequestParam("empJobCategory") String employeeJobCategory,
+                                 @RequestParam("empEmail") String employeeEmail,
+                                 @RequestParam(name = "empPhone", required = false) String employeePhone,
+                                 @RequestParam(name = "empBirthDate",required = false) String employeeBirthData,
+                                 @RequestParam("empUsername") String employeeUsername, @RequestParam("empPassword") String employeePassword,
+                                 @RequestParam("empGender") String employeeGender,
+                                 @RequestParam("empPasswordConfirmation") String employeePasswordConfirmation) {
         employeeService.addEmployee(employeeName, employeeSurname, employeeJobCategory, employeeEmail,
                 employeePhone, employeeBirthData, employeeUsername, employeePassword, employeeGender, employeePasswordConfirmation);
         return "redirect:/employee/login";

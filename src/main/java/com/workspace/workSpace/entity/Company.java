@@ -1,6 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "companies")
@@ -28,6 +29,18 @@ public class Company {
     @Column(name = "password", nullable = false)
     private String companyPassword;
 
+    @Column(name = "account_non_locked",nullable = false)
+    private boolean companyNonLocked;
+
+    @Column(name = "failed_attempt",nullable = false)
+    private int companyFailedAttempt;
+
+    @Column(name = "lock_time")
+    private Date companyLockTime;
+
+    @Column(name = "is_enabled",nullable = false)
+    private boolean isCompanyEnabled;
+
     public Company() {
     }
 
@@ -40,6 +53,10 @@ public class Company {
         this.companyOfficeAddress = companyOfficeAddress;
         this.companyUsername = companyUsername;
         this.companyPassword = companyPassword;
+        this.companyNonLocked=true;
+        this.companyLockTime=null;
+        this.companyFailedAttempt=0;
+        this.isCompanyEnabled=true;
     }
 
     public Long getCompanyId() {
@@ -98,4 +115,35 @@ public class Company {
         this.companyPassword = companyPassword;
     }
 
+    public boolean isCompanyNonLocked() {
+        return companyNonLocked;
+    }
+
+    public void setCompanyNonLocked(boolean companyNonLocked) {
+        this.companyNonLocked = companyNonLocked;
+    }
+
+    public int getCompanyFailedAttempt() {
+        return companyFailedAttempt;
+    }
+
+    public void setCompanyFailedAttempt(int companyFailedAttempt) {
+        this.companyFailedAttempt = companyFailedAttempt;
+    }
+
+    public Date getCompanyLockTime() {
+        return companyLockTime;
+    }
+
+    public void setCompanyLockTime(Date companyLockTime) {
+        this.companyLockTime = companyLockTime;
+    }
+
+    public boolean isCompanyEnabled() {
+        return isCompanyEnabled;
+    }
+
+    public void setCompanyEnabled(boolean companyEnabled) {
+        isCompanyEnabled = companyEnabled;
+    }
 }

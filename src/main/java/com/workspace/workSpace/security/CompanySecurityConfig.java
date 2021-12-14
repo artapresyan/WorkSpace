@@ -21,22 +21,27 @@ public class CompanySecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private CompanyCustomLoginFailureHandler companyCustomLoginFailureHandler;
+
+    @Autowired
+    private CompanyCustomLoginSuccessHandler companyCustomLoginSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .antMatcher("/company/*")
                 .authorizeRequests()
-                .antMatchers("/company/registration").permitAll()
+                .antMatchers("/company/registration","/company/login").permitAll()
                 .antMatchers("/resources/**").authenticated()
                 .antMatchers("/company/home").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/company/login")
-                .loginProcessingUrl("/company/login")
-                .defaultSuccessUrl("/company/home")
-                .failureUrl("/company/login?error=true")
+                .failureHandler(companyCustomLoginFailureHandler)
+                .successHandler(companyCustomLoginSuccessHandler)
                 .permitAll();
     }
 

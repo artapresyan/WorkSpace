@@ -16,10 +16,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class EmployeeSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    EmployeeDetailsService employeeDetailsService;
+    private EmployeeDetailsService employeeDetailsService;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private EmployeeCustomLoginFailureHandler employeeCustomLoginFailureHandler;
+
+    @Autowired
+    private EmployeeCustomLoginSuccessHandler employeeCustomLoginSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,16 +33,15 @@ public class EmployeeSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .antMatcher("/employee/*")
                 .authorizeRequests()
-                .antMatchers("/employee/registration").permitAll()
+                .antMatchers("/employee/registration","/employee/login").permitAll()
                 .antMatchers("/resources/**").authenticated()
                 .antMatchers("/employee/home").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/employee/login")
-                .loginProcessingUrl("/employee/login")
-                .defaultSuccessUrl("/employee/home")
-                .failureUrl("/employee/login?error=true")
+                .failureHandler(employeeCustomLoginFailureHandler)
+                .successHandler(employeeCustomLoginSuccessHandler)
                 .permitAll();
     }
 

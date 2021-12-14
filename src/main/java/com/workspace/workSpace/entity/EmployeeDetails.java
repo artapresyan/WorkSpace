@@ -38,16 +38,16 @@ public class EmployeeDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return employee.isEmployeeNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return employee.getEmployeeFailedAttempt()<3;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return employee.isEmployeeEnabled();
     }
 }

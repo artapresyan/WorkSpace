@@ -5,11 +5,17 @@ import com.workspace.workSpace.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class CompanyService {
+
+    public static final int companyMaxFailAttempts = 3;
+
+    private static final long companyLockTimeDuration = 60 * 60 * 1000;
 
     @Autowired
     CompanyRepository companyRepository;
@@ -91,4 +97,43 @@ public class CompanyService {
         return companyRepository.getById(companyId);
     }
 
+    public Company getCompanyByUsername(String companyUsername) {
+        return companyRepository.getByCompanyUsername(companyUsername);
+    }
+
+    public boolean companyIsEnabled(Company company){
+        return company.isCompanyEnabled();
+    }
+
+    public void increaseCompanyFailedAttempts(Company company) {
+        int newFailedAttempt=company.getCompanyFailedAttempt()+1;
+        company.setCompanyFailedAttempt(newFailedAttempt);
+        companyRepository.save(company);
+    }
+
+    public void resetCompanyFailedAttempts(String username) {
+        Company company=companyRepository.getByCompanyUsername(username);
+        company.setCompanyFailedAttempt(0);
+        companyRepository.save(company);
+    }
+
+    public void lockCompanyForAttempts(Company company) {
+        company.setCompanyNonLocked(false);
+        company.setCompanyLockTime(new Date());
+        companyRepository.save(company);
+    }
+
+    public boolean unlockCompanyForAttempts(Company company) {
+        long lockTimeInMillis = company.getCompanyLockTime().getTime();
+        long currentTimeInMillis = System.currentTimeMillis();
+
+        if (lockTimeInMillis + companyLockTimeDuration < currentTimeInMillis) {
+            company.setCompanyNonLocked(true);
+            company.setCompanyLockTime(null);
+            company.setCompanyFailedAttempt(0);
+            companyRepository.save(company);
+            return true;
+        }
+        return false;
+    }
 }

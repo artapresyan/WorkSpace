@@ -38,16 +38,16 @@ public class CompanyDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return company.isCompanyNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return company.getCompanyFailedAttempt()<3;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return company.isCompanyEnabled();
     }
 }

@@ -5,11 +5,17 @@ import com.workspace.workSpace.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class EmployeeService {
+
+    public static final int employeeMaxFailAttempts = 3;
+
+    private static final long employeeLockTimeDuration = 60 * 60 * 1000;
 
     @Autowired
     EmployeeRepository employeeRepository;
@@ -23,9 +29,9 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(String employeeName, String employeeSurname, String employeeJobCategory,
-                            String employeeEmail, String employeePhone, String employeeBirthData,
-                            String employeeUsername, String employeePassword, String employeeGender,
-                            String employeePasswordConfirmation) {
+                                String employeeEmail, String employeePhone, String employeeBirthData,
+                                String employeeUsername, String employeePassword, String employeeGender,
+                                String employeePasswordConfirmation) {
         if (employeeRepository.getByEmployeeEmail(employeeEmail) == null &&
                 employeeRepository.getByEmployeeUsername(employeeUsername) == null) {
             if (employeeName.matches("^[A-Z][a-z]{2,20}$") && employeeSurname.matches("^[A-Z][a-z]{2,30}$")
@@ -103,5 +109,44 @@ public class EmployeeService {
 
     public Employee getEmployeeById(Long employeeId) {
         return employeeRepository.getById(employeeId);
+    }
+
+    public Employee getEmployeeByUsername(String employeeUsername) {
+        return employeeRepository.getByEmployeeUsername(employeeUsername);
+    }
+
+    public boolean isEmployeeEnabled(Employee employee) {
+        return employee.isEmployeeEnabled();
+    }
+
+    public void increaseEmployeeFailedAttempts(Employee employee) {
+        int newFailedAttempt = employee.getEmployeeFailedAttempt() + 1;
+        employee.setEmployeeFailedAttempt(newFailedAttempt);
+        employeeRepository.save(employee);
+    }
+
+    public void resetEmployeeFailedAttempts(String employeeUsername) {
+        Employee employee = employeeRepository.getByEmployeeUsername(employeeUsername);
+        employee.setEmployeeFailedAttempt(0);
+        employeeRepository.save(employee);
+    }
+
+    public void lockEmployeeForAttempts(Employee employee) {
+        employee.setEmployeeNonLocked(false);
+        employee.setEmployeeLockTime(new Date());
+        employeeRepository.save(employee);
+    }
+
+    public boolean unlockEmployeeForAttempts(Employee employee) {
+        long empLockTimeInMill = employee.getEmployeeLockTime().getTime();
+        long currentTimeInMill = System.currentTimeMillis();
+        if (empLockTimeInMill + employeeLockTimeDuration < currentTimeInMill) {
+            employee.setEmployeeNonLocked(true);
+            employee.setEmployeeLockTime(null);
+            employee.setEmployeeFailedAttempt(0);
+            employeeRepository.save(employee);
+            return true;
+        }
+        return false;
     }
 }
