@@ -1,6 +1,7 @@
 package com.workspace.workSpace.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -41,22 +42,35 @@ public class Company {
     @Column(name = "is_enabled",nullable = false)
     private boolean isCompanyEnabled;
 
+    @Column(name = "account_non_expired",nullable = false)
+    private boolean companyNonExpired;
+
+    @Column(name = "last_login",nullable = false)
+    private LocalDate lastLogin;
+
+    @Column(name = "employees",nullable = false)
+    private String numOfEmployees;
+
     public Company() {
     }
 
     public Company(String companyName, String companyEmail, String companyPhone,
                    String companyOfficeAddress, String companyUsername,
-                   String companyPassword) {
+                   String companyPassword,String numOfEmployees) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
         this.companyOfficeAddress = companyOfficeAddress;
         this.companyUsername = companyUsername;
         this.companyPassword = companyPassword;
+        this.numOfEmployees=numOfEmployees;
         this.companyNonLocked=true;
         this.companyLockTime=null;
         this.companyFailedAttempt=0;
         this.isCompanyEnabled=true;
+        this.companyNonExpired=true;
+        this.lastLogin=LocalDate.now();
+
     }
 
     public Long getCompanyId() {
@@ -145,5 +159,29 @@ public class Company {
 
     public void setCompanyEnabled(boolean companyEnabled) {
         isCompanyEnabled = companyEnabled;
+    }
+
+    public String getNumOfEmployees() {
+        return numOfEmployees;
+    }
+
+    public void setNumOfEmployees(String numOfEmployees) {
+        this.numOfEmployees = numOfEmployees;
+    }
+
+    public boolean isCompanyNonExpired() {
+        return companyNonExpired;
+    }
+
+    public void setCompanyNonExpired(boolean companyNonExpired) {
+        this.companyNonExpired = companyNonExpired;
+    }
+
+    public LocalDate getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

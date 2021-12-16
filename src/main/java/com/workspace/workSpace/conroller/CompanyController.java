@@ -60,9 +60,10 @@ public class CompanyController {
     public String addNewCompany(@RequestParam(value = "compName") String companyName, @RequestParam(value = "compEmail") String companyEmail,
                                 @RequestParam(value = "compPhone") String companyPhone, @RequestParam(value = "compOfficeAddress") String companyOfficeAddress,
                                 @RequestParam(value = "compUsername") String companyUsername, @RequestParam(value = "compPassword") String companyPassword,
-                                @RequestParam(value = "compPasswordConfirmation") String companyPasswordConfirmation) {
+                                @RequestParam(value = "compPasswordConfirmation") String companyPasswordConfirmation,
+                                @RequestParam(value="numOfEmployees") String numOfEmployees) {
         companyService.addCompany(companyName, companyEmail, companyPhone, companyOfficeAddress, companyUsername,
-                companyPassword, companyPasswordConfirmation);
+                companyPassword, companyPasswordConfirmation,numOfEmployees);
         return "redirect:/company/login";
     }
 
@@ -70,9 +71,10 @@ public class CompanyController {
     public String editCompanyInfo(@RequestParam(required = false) String companyName, @RequestParam(required = false) String companyEmail,
                                   @RequestParam(required = false) String companyPhone, @RequestParam(required = false) String companyOfficeAddress,
                                   @RequestParam(required = false) String companyUsername, @RequestParam(required = false) String newCompanyPassword,
-                                  @RequestParam Long companyId, @RequestParam String companyPassword) {
+                                  @RequestParam Long companyId, @RequestParam String companyPassword,
+                                  @RequestParam(required = false) String numOfEmployees) {
         return companyService.editCompany(companyId, companyName, companyEmail, companyPhone, companyOfficeAddress,
-                companyUsername, companyPassword, newCompanyPassword);
+                companyUsername, companyPassword, newCompanyPassword,numOfEmployees);
     }
 
     @DeleteMapping("/remove")

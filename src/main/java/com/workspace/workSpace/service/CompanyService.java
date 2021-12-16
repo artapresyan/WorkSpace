@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CompanyService {
@@ -29,7 +34,7 @@ public class CompanyService {
 
     public Company addCompany(String companyName, String companyEmail, String companyPhone,
                               String companyOfficeAddress, String companyUsername,
-                              String companyPassword, String companyPasswordConfirmation) {
+                              String companyPassword, String companyPasswordConfirmation, String numOfEmployees) {
         if (companyRepository.getByCompanyUsername(companyUsername) == null &&
                 companyRepository.getByCompanyName(companyName) == null &&
                 companyRepository.getByCompanyEmail(companyEmail) == null) {
@@ -39,10 +44,11 @@ public class CompanyService {
                     && companyPhone.matches("374([9]{2}|[98]|[97]|[96]|[95]|[94]|[93]" +
                     "|[91]|[7]{2}|[60]|[5]{2}|[4]{2}|[43]|[41]|[3]{2}|[12]|[1]{2}|[10]){2}[0-9]{6}")
                     && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}")
-                    && companyPasswordConfirmation.matches(companyPassword)) {
+                    && companyPasswordConfirmation.matches(companyPassword)
+                    && numOfEmployees.matches("[\\w]+[-][\\w]+")) {
                 String bCryptCompanyPassword = bCryptPasswordEncoder.encode(companyPassword);
                 Company newCompany = new Company(companyName, companyEmail, companyPhone, companyOfficeAddress,
-                        companyUsername, bCryptCompanyPassword);
+                        companyUsername, bCryptCompanyPassword,numOfEmployees);
                 return companyRepository.save(newCompany);
             }
         }
@@ -64,7 +70,7 @@ public class CompanyService {
 
     public String editCompany(Long companyId, String companyName, String companyEmail, String companyPhone,
                               String companyOfficeAddress, String companyUsername,
-                              String companyPassword, String newCompanyPassword) {
+                              String companyPassword, String newCompanyPassword,String numOfEmployees) {
         try {
             Company company = companyRepository.getById(companyId);
             if (bCryptPasswordEncoder.matches(companyPassword, company.getCompanyPassword())) {
@@ -84,6 +90,8 @@ public class CompanyService {
                 }
                 if (companyEmail != null && companyEmail.matches("^[a-z][a-z0-9-_.]+[a-z0-9]+@[a-z]+\\.[a-z.]{2,}"))
                     company.setCompanyEmail(companyEmail);
+                if (numOfEmployees!=null && numOfEmployees.matches("\\w-\\w"))
+                    company.setNumOfEmployees(numOfEmployees);
                 companyRepository.save(company);
                 return "Information successfully updated";
             } else
@@ -135,5 +143,24 @@ public class CompanyService {
             return true;
         }
         return false;
+    }
+
+    public void deactivateCompanyForExpire(Company company){
+        LocalDate localDate=LocalDate.now();
+        if (ChronoUnit.MONTHS.between(localDate,company.getLastLogin())>0){
+            company.setCompanyNonExpired(false);
+            companyRepository.save(company);
+        }
+    }
+    public boolean activateCompanyForExpire(Company company){
+        //verifying with email
+        company.setCompanyNonExpired(true);
+        companyRepository.save(company);
+        return true;
+    }
+
+    public void updateCompanyLastLogin(Company company){
+        company.setLastLogin(LocalDate.now());
+        companyRepository.save(company);
     }
 }

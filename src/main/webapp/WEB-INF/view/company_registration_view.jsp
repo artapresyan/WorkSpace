@@ -193,6 +193,23 @@
             <input type="text" placeholder="Komitas Avenue 50/9" name="compOfficeAddress" required>
           </div>
           <div class="input-box">
+              <span class="details">Number of employees<font color="red">*</font></span>
+              <input list="brow" placeholder="0-100" name="numOfEmployees" required>
+              <datalist id="brow">
+                <option value="0-100">
+                <option value="200-300">
+                <option value="300-400">
+                <option value="400-500">
+                <option value="600-700">
+                <option value="700-800">
+                <option value="900-1000">
+                <option value="1000-1500">
+                <option value="1500-2000">
+                <option value="2000-2500">
+                <option value="2500-3000">
+              </datalist>
+         </div>
+          <div class="input-box">
             <span class="details">Username<font color="red">*</font></span>
             <input type="text" placeholder="username" name="compUsername" required>
           </div>

@@ -24,8 +24,10 @@ public class CompanyCustomLoginSuccessHandler extends SimpleUrlAuthenticationSuc
                                         Authentication authentication) throws IOException, ServletException {
         CompanyDetails companyDetails = (CompanyDetails) authentication.getPrincipal();
         Company company = companyDetails.getCompany();
-        if (company.getCompanyFailedAttempt() > 0)
+        if (company.getCompanyFailedAttempt() > 0) {
             companyService.resetCompanyFailedAttempts(company.getCompanyUsername());
+        }
+        companyService.updateCompanyLastLogin(company);
         super.setDefaultTargetUrl("/company/home");
         super.onAuthenticationSuccess(request, response, authentication);
     }

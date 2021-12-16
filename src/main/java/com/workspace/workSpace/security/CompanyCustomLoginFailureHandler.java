@@ -24,7 +24,7 @@ public class CompanyCustomLoginFailureHandler extends SimpleUrlAuthenticationFai
         String username = request.getParameter("username");
         Company company = companyService.getCompanyByUsername(username);
         if (company != null) {
-            if (company.isCompanyEnabled() && company.isCompanyNonLocked()) {
+            if (company.isCompanyEnabled() && company.isCompanyNonLocked() && company.isCompanyNonExpired()) {
                 if (company.getCompanyFailedAttempt() < CompanyService.companyMaxFailAttempts) {
                     companyService.increaseCompanyFailedAttempts(company);
                 } else {
@@ -35,6 +35,10 @@ public class CompanyCustomLoginFailureHandler extends SimpleUrlAuthenticationFai
             } else if (!company.isCompanyNonLocked()) {
                 if (companyService.unlockCompanyForAttempts(company)) {
                     exception = new LockedException("Your company's account has been unlocked. Please try to login again.");
+                }
+            }else if (!company.isCompanyNonExpired()){
+                if (companyService.activateCompanyForExpire(company)){
+                    exception = new LockedException("Your company's account has been activated. Please try to login again.");
                 }
             }
 

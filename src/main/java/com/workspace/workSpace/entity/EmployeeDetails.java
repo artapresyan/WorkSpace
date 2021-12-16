@@ -33,7 +33,7 @@ public class EmployeeDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return employee.isEmployeeNonExpired();
     }
 
     @Override

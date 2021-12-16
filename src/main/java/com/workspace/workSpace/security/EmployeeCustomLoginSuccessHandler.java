@@ -26,6 +26,7 @@ public class EmployeeCustomLoginSuccessHandler extends SimpleUrlAuthenticationSu
         Employee employee = employeeDetails.getEmployee();
         if (employee.getEmployeeFailedAttempt() > 0)
             employeeService.resetEmployeeFailedAttempts(employee.getEmployeeUsername());
+        employeeService.updateEmployeeLastLogin(employee);
         super.setDefaultTargetUrl("/employee/home");
         super.onAuthenticationSuccess(request, response, authentication);
     }

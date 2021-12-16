@@ -25,7 +25,7 @@ public class EmployeeCustomLoginFailureHandler extends SimpleUrlAuthenticationFa
         String username = request.getParameter("username");
         Employee employee = employeeService.getEmployeeByUsername(username);
         if (employee != null) {
-            if (employee.isEmployeeEnabled() && employee.isEmployeeNonLocked()) {
+            if (employee.isEmployeeEnabled() && employee.isEmployeeNonLocked() && employee.isEmployeeNonExpired()) {
                 if (employee.getEmployeeFailedAttempt() < EmployeeService.employeeMaxFailAttempts) {
                     employeeService.increaseEmployeeFailedAttempts(employee);
                 } else {
@@ -37,9 +37,13 @@ public class EmployeeCustomLoginFailureHandler extends SimpleUrlAuthenticationFa
                 if (employeeService.unlockEmployeeForAttempts(employee)) {
                     exception = new LockedException("Your account has been unlocked. Please try to login again.");
                 }
+            } else if (!employee.isEmployeeNonExpired()) {
+                if (employeeService.activateEmployeeForExpire(employee)) {
+                    exception = new LockedException("Your account has been activated. Please try to login again.");
+                }
             }
+            super.setDefaultFailureUrl("/employee/login?error");
+            super.onAuthenticationFailure(request, response, exception);
         }
-        super.setDefaultFailureUrl("/employee/login?error");
-        super.onAuthenticationFailure(request, response, exception);
     }
 }

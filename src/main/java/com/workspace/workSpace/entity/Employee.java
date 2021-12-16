@@ -53,6 +53,12 @@ public class Employee {
     @Column(name = "is_enabled",nullable = false)
     private boolean isEmployeeEnabled;
 
+    @Column(name = "employee_non_expired",nullable = false)
+    private boolean employeeNonExpired;
+
+    @Column(name = "last_login",nullable = false)
+    private LocalDate lastLogin;
+
     public Employee() {
     }
 
@@ -77,6 +83,8 @@ public class Employee {
         this.employeeFailedAttempt=0;
         this.employeeLockTime=null;
         this.isEmployeeEnabled=true;
+        this.employeeNonExpired=true;
+        this.lastLogin=LocalDate.now();
     }
 
     public Long getEmployeeId() {
@@ -197,6 +205,22 @@ public class Employee {
 
     public void setEmployeeEnabled(boolean employeeEnabled) {
         isEmployeeEnabled = employeeEnabled;
+    }
+
+    public boolean isEmployeeNonExpired() {
+        return employeeNonExpired;
+    }
+
+    public void setEmployeeNonExpired(boolean employeeNonExpired) {
+        this.employeeNonExpired = employeeNonExpired;
+    }
+
+    public LocalDate getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }
 

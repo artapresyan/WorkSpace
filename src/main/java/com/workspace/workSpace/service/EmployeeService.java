@@ -1,11 +1,14 @@
 package com.workspace.workSpace.service;
 
+import com.workspace.workSpace.entity.Company;
 import com.workspace.workSpace.entity.Employee;
 import com.workspace.workSpace.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -148,5 +151,24 @@ public class EmployeeService {
             return true;
         }
         return false;
+    }
+
+    public void deactivateEmployeeForExpire(Employee employee){
+        LocalDate localDate=LocalDate.now();
+        if (ChronoUnit.MONTHS.between(localDate,employee.getLastLogin())>0){
+            employee.setEmployeeNonExpired(false);
+            employeeRepository.save(employee);
+        }
+    }
+    public boolean activateEmployeeForExpire(Employee employee){
+        //verifying with email
+        employee.setEmployeeNonExpired(true);
+        employeeRepository.save(employee);
+        return true;
+    }
+
+    public void updateEmployeeLastLogin(Employee employee){
+        employee.setLastLogin(LocalDate.now());
+        employeeRepository.save(employee);
     }
 }
