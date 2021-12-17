@@ -43,13 +43,13 @@ public class EmployeeController {
         return "redirect:/employee/login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/details")
     public String getEmployeeHomepage(Authentication authentication, Model model) {
         try {
             EmployeeDetails employeeDetails = (EmployeeDetails) authentication.getPrincipal();
             Employee employee = employeeDetails.getEmployee();
             model.addAttribute("employee", employee);
-            return "employee_view";
+            return "employee_details_view";
         } catch (NoSuchElementException e) {
             return "redirect:/employee/login";
         }

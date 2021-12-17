@@ -44,13 +44,13 @@ public class CompanyController {
         return "redirect:/company/login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/details")
     public String getCompanyHomepage(Authentication authentication, Model model) {
         try {
             CompanyDetails companyDetails = (CompanyDetails) authentication.getPrincipal();
             Company company = companyDetails.getCompany();
             model.addAttribute("company", company);
-            return "company_view";
+            return "company_details_view";
         } catch (NoSuchElementException e) {
             return "redirect:/company/login";
         }

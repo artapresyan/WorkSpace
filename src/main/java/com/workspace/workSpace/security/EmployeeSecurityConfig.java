@@ -36,6 +36,7 @@ public class EmployeeSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/employee/registration","/employee/login").permitAll()
                 .antMatchers("/resources/**").authenticated()
                 .antMatchers("/employee/home").authenticated()
+                .antMatchers("/employee/details").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

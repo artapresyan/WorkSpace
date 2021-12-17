@@ -41,7 +41,7 @@ public class Employee {
     @Column(name = "Gender")
     private String employeeGender;
 
-    @Column(name = "account_non_locked",nullable = false)
+    @Column(name = "employee_non_locked",nullable = false)
     private boolean employeeNonLocked;
 
     @Column(name = "failed_attempt",nullable = false)

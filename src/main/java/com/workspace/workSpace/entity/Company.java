@@ -30,7 +30,7 @@ public class Company {
     @Column(name = "password", nullable = false)
     private String companyPassword;
 
-    @Column(name = "account_non_locked",nullable = false)
+    @Column(name = "company_non_locked",nullable = false)
     private boolean companyNonLocked;
 
     @Column(name = "failed_attempt",nullable = false)
@@ -42,7 +42,7 @@ public class Company {
     @Column(name = "is_enabled",nullable = false)
     private boolean isCompanyEnabled;
 
-    @Column(name = "account_non_expired",nullable = false)
+    @Column(name = "company_non_expired",nullable = false)
     private boolean companyNonExpired;
 
     @Column(name = "last_login",nullable = false)

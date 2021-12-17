@@ -36,6 +36,7 @@ public class CompanySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/company/registration","/company/login").permitAll()
                 .antMatchers("/resources/**").authenticated()
                 .antMatchers("/company/home").authenticated()
+                .antMatchers("/company/details").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
